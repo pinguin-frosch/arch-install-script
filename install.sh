@@ -3,8 +3,6 @@
 #2. Formatear
 #3. Montar
 
-genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
 ln -sf /usr/share/zoneinfo/America/Santiago /etc/localtime
 hwclock --systohc
 echo "es_CL.UTF-8 UTF-8" >> /etc/locale.gen
