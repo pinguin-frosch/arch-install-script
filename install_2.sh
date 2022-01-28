@@ -29,7 +29,7 @@ echo "LANG=es_CL.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=la-latin1" >> /etc/vconsole.conf
 
 # Software esencial
-pacman -S --noconfirm alacritty ark base-devel dolphin efibootmgr git gnome-keyring grub gwenview networkmanager ntfs-3g nvidia nvidia-prime obs-studio okular os-prober partitionmanager plasma qbittorrent spectacle stow vim virtualbox virtualbox-guest-iso virtualbox-host-modules-arch vlc
+pacman -S --noconfirm alacritty ark base-devel dolphin efibootmgr git gnome-keyring grub gwenview networkmanager ntfs-3g nvidia nvidia-prime obs-studio okular os-prober partitionmanager plasma qbittorrent spectacle stow vim virtualbox virtualbox-guest-iso virtualbox-host-modules-arch vlc xorg-xinit
 
 # Software opcional
 pacman -S --noconfirm ffmpegthumbs kdegraphics-mobipocket kdegraphics-thumbnailers kimageformats p7zip qt5-imageformats unarchiver unrar unzip
@@ -50,6 +50,15 @@ grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
 systemctl enable sddm
 
+# Distrubución de teclado
+curl -LO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/keymap/pro
+cp -rf pro /usr/share/X11/xkb/symbols/.
+rm -rf pro
+sed -i "s,<name>custom</name>,<name>pro</name>," /usr/share/X11/xkb/rules/evdev.xml
+sed -i "s,<shortDescription>custom</shortDescription>,<shortDescription>pro</shortDescription>," /usr/share/X11/xkb/rules/evdev.xml
+sed -i "s,<description>A user-defined custom Layout</description>,<description>programming</description>," /usr/share/X11/xkb/rules/evdev.xml
+sed -i "s,<description>programming</description>,<description>programming</description>\n        <languageList>\n          <iso639Id>spa</iso639Id>\n        </languageList>," /usr/share/X11/xkb/rules/evdev.xml
+
 # Fuente
 curl -LO https://github.com/microsoft/cascadia-code/releases/download/v2111.01/CascadiaCode-2111.01.zip
 unzip CascadiaCode-2111.01.zip
@@ -57,10 +66,9 @@ cp -rf ttf/* /usr/share/fonts
 rm -rf woff2/ otf/ ttf/ CascadiaCode-2111.01.zip
 
 # Continuación
-git clone https://github.com/pinguin-frosch/test.git
-chmod +x test/install_3.sh
-cp test/install_3.sh /home/$username/.
-rm -rf test
+curl -LO https://raw.githubusercontent.com/pinguin-frosch/test/main/install_3.sh
+cp install_3.sh /home/$username/.
+rm -rf install_3.sh
 
 # Salir
 exit
