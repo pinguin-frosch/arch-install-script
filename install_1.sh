@@ -39,4 +39,4 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt ./install_2.sh
 
 #15. Reiniciar
-reboot
+# reboot
