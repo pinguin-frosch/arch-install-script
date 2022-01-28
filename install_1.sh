@@ -4,7 +4,7 @@
 curl -LO raw.githubusercontent.com/pinguin-frosch/test/main/install_2.sh
 chmod +x install_2.sh
 loadkeys la-latin1
-timedatectl set-ntp true
+timedatectl set-ntp true >/dev/null
 
 # Particionar
 lsblk
