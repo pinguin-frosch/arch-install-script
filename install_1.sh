@@ -1,42 +1,54 @@
 #!/bin/bash
 
-#0. Inicio
+# Inicio
+chmod +x install*.sh
+cp install_2.sh /mnt
 loadkeys la-latin1
 timedatectl set-ntp true
 
-#1. Particionar
+# Particionar
 lsblk
 echo -n "Disco: "
 read disk
 cfdisk $disk
 
-#2. Formatear
+# Formatear
 lsblk
-echo -n "Partición root: "
-read rootpartition
-echo -n "Partición efi: "
+echo -n "Partición efi:  "
 read efipartition
-echo -n "Partición swap: "
-read swappartition
-mkfs.ext4 $rootpartition
-mkswap $swappartition
-echo -n "¿Formatear efi? [s/n]: "
+echo -n "¿Formatear efi? [s/n]:  "
 read a
 if [[ $a == "s" ]]; then
     mkfs.fat -F 32 $efipartition
 fi
 
-#3. Montar
-mount $rootpartition /mnt
-swapon $swappartition
-mkdir /mnt/efi && mount $efipartition /mnt/efi
+echo -n "Partición root: "
+read rootpartition
+echo -n "¿Formatear root? [s/n]: "
+read b
+if [[ $b == "s" ]]; then
+    mkfs.ext4 $rootpartition
+fi
 
-#4. Instalación básica
+echo -n "Partición swap: "
+read swappartition
+echo -n "¿Formatear swap? [s/n]: "
+read c
+if [[ $c == "s" ]]; then
+    mkswap $swappartition
+fi
+
+# Montar
+mount $rootpartition /mnt
+mkdir /mnt/efi && mount $efipartition /mnt/efi
+swapon $swappartition
+
+# Instalación básica
 pacstrap /mnt base linux linux-firmware
 
-#5. fstab y chroot
+# fstab y chroot
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt ./install_2.sh
+arch-chroot /mnt
 
-#15. Reiniciar
+# Reiniciar
 # reboot
