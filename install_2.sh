@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# zsh
+# Zsh
 pacman -S --noconfirm zsh zsh-completions
 
 # Contraseña root
@@ -17,6 +17,9 @@ usermod -aG wheel $username
 usermod -s /usr/bin/zsh $username
 
 # Configuración básica
+echo -n "Hostname: "
+read hostname
+echo "$hostname" >> /etc/hostname
 ln -sf /usr/share/zoneinfo/America/Santiago /etc/localtime
 hwclock --systohc
 # echo "es_CL.UTF-8 UTF-8" >> /etc/locale.gen
@@ -24,15 +27,12 @@ sed -i "s/^#es_CL.UTF-8 UTF-8/es_CL.UTF-8 UTF-8/" /etc/locale.gen
 locale-gen
 echo "LANG=es_CL.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=la-latin1" >> /etc/vconsole.conf
-echo -n "Hostname: "
-read hostname
-echo "$hostname" >> /etc/hostname
 
 # Software esencial
-pacman -S --noconfirm grub efibootmgr os-prober vim stow plasma dolphin alacritty base-devel ark gnome-keyring gwenview ntfs-3g nvidia nvidia-prime obs-studio okular partitionmanager spectacle virtualbox virtualbox-guest-iso virtualbox-host-modules-arch vlc networkmanager
+pacman -S --noconfirm alacritty ark base-devel dolphin efibootmgr git gnome-keyring grub gwenview networkmanager ntfs-3g nvidia nvidia-prime obs-studio okular os-prober partitionmanager plasma qbittorrent spectacle stow vim virtualbox virtualbox-guest-iso virtualbox-host-modules-arch vlc
 
 # Software opcional
-pacman -S --noconfirm ffmpegthumbs kdegraphics-thumbnailers p7zip unrar unarchiver qt5-imageformats kimageformats kdegraphics-mobipocket
+pacman -S --noconfirm ffmpegthumbs kdegraphics-mobipocket kdegraphics-thumbnailers kimageformats p7zip qt5-imageformats unarchiver unrar unzip
 
 # Configuración sudo
 sed -i "s/^# %wheel ALL=(ALL) ALL.*/%wheel ALL=(ALL) ALL/" /etc/sudoers
@@ -50,5 +50,17 @@ grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
 systemctl enable sddm
 
+# Fuente
+curl -LO https://github.com/microsoft/cascadia-code/releases/download/v2111.01/CascadiaCode-2111.01.zip
+unzip CascadiaCode-2111.01.zip
+cp -rf ttf/* /usr/share/fonts
+rm -rf woff2/ otf/ ttf/ CascadiaCode-2111.01.zip
+
+# Continuación
+git clone https://github.com/pinguin-frosch/test.git
+chmod +x test/install_3.sh
+cp test/install_3.sh /home/$username/.
+rm -rf test
+
 # Salir
-# exit
+exit
