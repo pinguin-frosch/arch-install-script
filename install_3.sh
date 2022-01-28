@@ -7,5 +7,8 @@ makepkg -si
 cd ..
 rm -rf yay
 
-# Salir
-# exit
+# Paquetes yay
+yay -S --noconfirm google-chrome visual-studio-code-bin minecraft-launcher opentabletdriver
+
+# Eliminar
+rm -rf ./install_3.sh
