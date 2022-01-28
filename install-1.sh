@@ -128,6 +128,11 @@ chown $username:$username install-2.sh
 chmod u+x install-2.sh
 cp install-2.sh /home/$username/.
 rm -rf install-2.sh
+curl -LO https://raw.githubusercontent.com/pinguin-frosch/test/main/install-3.sh
+chown $username:$username install-3.sh
+chmod u+x install-3.sh
+cp install-3.sh /home/$username/.
+rm -rf install-3.sh
 
 # Salir
 exit
