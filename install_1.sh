@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Inicio
-chmod +x install*.sh
-cp install_2.sh /mnt
+curl -LO raw.githubusercontent.com/pinguin-frosch/test/main/install_2.sh
+chmod +x install_2.sh
 loadkeys la-latin1
 timedatectl set-ntp true
 
@@ -46,9 +46,11 @@ swapon $swappartition
 # Instalación básica
 pacstrap /mnt base linux linux-firmware
 
-# fstab y chroot
+# Fstab y chroot
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
+cp install_2.sh /mnt
+arch-chroot /mnt ./install_2.sh
 
 # Reiniciar
-# reboot
+rm -rf /mnt/install_2.sh
+reboot
