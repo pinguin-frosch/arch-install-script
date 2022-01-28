@@ -1,24 +1,80 @@
 #!/bin/bash
 
+# Inicio
+loadkeys la-latin1
+timedatectl set-ntp true >/dev/null
+
+# Particionar
+lsblk
+echo -n "Disco: "
+read disk
+cfdisk $disk
+
+# Formatear
+lsblk
+echo -n "Partición efi:  "
+read efipartition
+echo -n "¿Formatear efi? [s/n]:  "
+read a
+if [[ $a == "s" ]]; then
+    mkfs.fat -F 32 $efipartition
+fi
+
+echo -n "Partición root: "
+read rootpartition
+echo -n "¿Formatear root? [s/n]: "
+read b
+if [[ $b == "s" ]]; then
+    mkfs.ext4 $rootpartition
+fi
+
+echo -n "Partición swap: "
+read swappartition
+echo -n "¿Formatear swap? [s/n]: "
+read c
+if [[ $c == "s" ]]; then
+    mkswap $swappartition
+fi
+
+# Inputs
+echo -n "Contraseña root: "
+read rootpassword
+
+echo -n "Nombre de usuario: "
+read username
+
+echo -n "Contraseña de usuario: "
+read userpassword
+
+echo -n "Hostname: "
+read hostname
+
+# Montar
+mount $rootpartition /mnt
+mkdir /mnt/efi && mount $efipartition /mnt/efi
+swapon $swappartition
+
+# Instalación básica
+pacstrap /mnt base linux linux-firmware
+
+# Fstab y chroot
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt /bin/sh << EOF
+#!/bin/bash
+
 # Zsh
 pacman -S --noconfirm zsh zsh-completions
 
 # Contraseña root
-echo "Constraseña root"
-passwd
+echo -e "$rootpassword\n$rootpassword" | passwd
 
 # Creación y configuración usuario
-echo -n "Nombre de usuario: "
-read username
 useradd -m $username
-echo "Constraseña de usuario"
-passwd $username
+echo -e "$userpassword\n$userpassword" | passwd $username
 usermod -aG wheel $username
 usermod -s /usr/bin/zsh $username
 
 # Configuración básica
-echo -n "Hostname: "
-read hostname
 echo "$hostname" >> /etc/hostname
 ln -sf /usr/share/zoneinfo/America/Santiago /etc/localtime
 hwclock --systohc
@@ -67,9 +123,15 @@ cp -rf ttf/* /usr/share/fonts
 rm -rf woff2/ otf/ ttf/ CascadiaCode-2111.01.zip
 
 # Continuación
-curl -LO https://raw.githubusercontent.com/pinguin-frosch/test/main/install_3.sh
-cp install_3.sh /home/$username/.
-rm -rf install_3.sh
+curl -LO https://raw.githubusercontent.com/pinguin-frosch/test/main/install-2.sh
+chown $username:$username install-2.sh
+chmod u+x install-2.sh
+cp install-2.sh /home/$username/.
+rm -rf install-2.sh
 
 # Salir
 exit
+EOF
+
+# Reiniciar
+reboot
