@@ -1,0 +1,62 @@
+// Modified by Gabriel Barrientos
+
+default  partial alphanumeric_keys
+xkb_symbols "Programming" {
+
+    include "latin(type4)"
+
+    name[Group1]="Spanish (Programming)";
+
+    key <TLDE>  { [ bar, degree, notsign, NoSymbol ] };
+    key <AE01>  { [ 1, exclam, acute, NoSymbol ] };
+    key <AE02>  { [ 2, quotedbl, grave, NoSymbol ] };
+    key <AE03>  { [ 3, numbersign, asciitilde, NoSymbol ] };
+    key <AE04>  { [ 4, dollar, U005E, NoSymbol ] };
+    key <AE05>  { [ 5, percent, diaeresis, NoSymbol ] };
+    key <AE06>  { [ 6, ampersand, NoSymbol, NoSymbol ] };
+    key <AE07>  { [ 7, slash, NoSymbol, NoSymbol ] };
+    key <AE08>  { [ 8, parenleft, NoSymbol, NoSymbol ] };
+    key <AE09>  { [ 9, parenright, NoSymbol, NoSymbol ] };
+    key <AE10>  { [ 0, equal, NoSymbol, NoSymbol ] };
+    key <AE11>  { [ apostrophe, question, backslash, NoSymbol ] };
+    key <AE12>  { [ questiondown, exclamdown, dead_circumflex, NoSymbol ] };
+
+    key <AD01>  { [ q, Q, at, NoSymbol ] };
+    key <AD02>  { [ w, W, slash, NoSymbol ] };
+    key <AD03>  { [ e, E, backslash, NoSymbol ] };
+    key <AD04>  { [ r, R, NoSymbol, NoSymbol ] };
+    key <AD05>  { [ t, T, NoSymbol, NoSymbol ] };
+    key <AD06>  { [ z, Z, NoSymbol, NoSymbol ] };
+    key <AD07>  { [ u, U, NoSymbol, NoSymbol ] };
+    key <AD08>  { [ i, I, NoSymbol, NoSymbol ] };
+    key <AD09>  { [ o, O, NoSymbol, NoSymbol ] };
+    key <AD10>  { [ p, P, NoSymbol, NoSymbol ] };
+    key <AD11>  { [ udiaeresis, Udiaeresis, dead_diaeresis, NoSymbol ] };
+    key <AD12>  { [ plus, asterisk, asciitilde, NoSymbol ] };
+    key <BKSL>  { [ ssharp, U1E9E, NoSymbol, NoSymbol ] };
+
+    key <AC01>  { [ a, A, less, NoSymbol ] };
+    key <AC02>  { [ s, S, parenleft, NoSymbol ] };
+    key <AC03>  { [ d, D, parenright, NoSymbol ] };
+    key <AC04>  { [ f, F, greater, NoSymbol ] };
+    key <AC05>  { [ g, G, NoSymbol, NoSymbol ] };
+    key <AC06>  { [ h, H, NoSymbol, NoSymbol ] };
+    key <AC07>  { [ j, J, NoSymbol, NoSymbol ] };
+    key <AC08>  { [ k, K, NoSymbol, NoSymbol ] };
+    key <AC09>  { [ l, L, NoSymbol, NoSymbol ] };
+    key <AC10>  { [ odiaeresis, Odiaeresis, dead_acute, NoSymbol ] };
+    key <AC11>  { [ adiaeresis, Adiaeresis, dead_grave, NoSymbol ] };
+
+    key <AB01>  { [ y, Y, braceleft, NoSymbol ] };
+    key <AB02>  { [ x, X, bracketleft, NoSymbol ] };
+    key <AB03>  { [ c, C, bracketright, NoSymbol ] };
+    key <AB04>  { [ v, V, braceright, NoSymbol ] };
+    key <AB05>  { [ b, B, NoSymbol, NoSymbol ] };
+    key <AB06>  { [ n, N, ntilde, Ntilde ] };
+    key <AB07>  { [ m, M, NoSymbol, NoSymbol ] };
+    key <AB08>  { [ comma, semicolon, NoSymbol, NoSymbol ] };
+    key <AB09>  { [ period, colon, NoSymbol, NoSymbol ] };
+    key <AB10>  { [ minus, underscore, NoSymbol, NoSymbol ] };
+
+    include "level3(ralt_switch)"
+};
