@@ -27,4 +27,5 @@
 # sed -i "s/^#GRUB_SAVEDEFAULT=.*/GRUB_SAVEDEFAULT=true/" /etc/default/grub
 # sed -i "s/^#GRUB_DISABLE_OS_PROBER=.*/GRUB_DISABLE_OS_PROBER=false/" /etc/default/grub
 # grub-mkconfig -o /boot/grub/grub.cfg
-pacman -S --noconfirm plasma dolphin alacritty base-devel ark gnome-keyring gwenview ntfs-3g nvidia nvidia-prime obs-studio okular partitionmanager spectacle virtualbox virtualbox-guest-iso virtualbox-host-modules-arch vlc zsh zsh-completions networkmanager
+# pacman -S --noconfirm plasma dolphin alacritty base-devel ark gnome-keyring gwenview ntfs-3g nvidia nvidia-prime obs-studio okular partitionmanager spectacle virtualbox virtualbox-guest-iso virtualbox-host-modules-arch vlc zsh zsh-completions networkmanager
+pacman -S kde-cli-tools ffmpegthumbs kdegraphics-thumbnailers p7zip unrar unarchiver lzop lrzip qt5-imageformats kimageformats ebook-tools kdegraphics-mobipocket libzip calligra
