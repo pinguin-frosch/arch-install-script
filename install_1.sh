@@ -36,4 +36,7 @@ pacstrap /mnt base linux linux-firmware
 
 #5. fstab y chroot
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
+arch-chroot /mnt ./install_2.sh
+
+#15. Reiniciar
+reboot
