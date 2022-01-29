@@ -85,7 +85,7 @@ echo "LANG=es_CL.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=la-latin1" >> /etc/vconsole.conf
 
 # Software esencial
-pacman -S --noconfirm alacritty ark base-devel dolphin efibootmgr git gnome-keyring grub gwenview networkmanager ntfs-3g nvidia nvidia-prime obs-studio okular os-prober partitionmanager plasma qbittorrent spectacle stow vim virtualbox virtualbox-guest-iso virtualbox-host-modules-arch vlc xorg-xinit
+pacman -S --noconfirm alacritty ark base-devel dolphin efibootmgr git gnome-keyring grub gwenview networkmanager ntfs-3g nvidia nvidia-prime obs-studio okular os-prober partitionmanager plasma qbittorrent seahorse spectacle stow vim virtualbox virtualbox-guest-iso virtualbox-host-modules-arch vlc xorg-xinit
 
 # Software opcional
 pacman -S --noconfirm ffmpegthumbs kdegraphics-mobipocket kdegraphics-thumbnailers kimageformats p7zip qt5-imageformats unarchiver unrar unzip
