@@ -1,5 +1,4 @@
 google-chrome
 minecraft-launcher
 opentabletdriver
-virtualbox-ext-oracle
 visual-studio-code-bin
