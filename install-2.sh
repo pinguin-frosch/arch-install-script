@@ -26,7 +26,7 @@ echo "LANG=es_CL.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=la-latin1" >> /etc/vconsole.conf
 
 # Configuración sudo
-sed -i "s/^# %wheel ALL=(ALL) ALL.*/%wheel ALL=(ALL) ALL/" /etc/sudoers
+sed -i "s/^# %wheel ALL=(ALL:ALL) ALL.*/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
 
 # Instalación y configuración grub
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
