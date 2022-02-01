@@ -78,4 +78,5 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt ./install-2.sh
 
 # Reiniciar
+rm /mnt/install-2.sh /mnt/pacman.txt
 reboot
