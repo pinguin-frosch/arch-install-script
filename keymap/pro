@@ -24,7 +24,7 @@ xkb_symbols "Programming" {
     key <AD01>  { [ q, Q, at, NoSymbol ] };
     key <AD02>  { [ w, W, slash, NoSymbol ] };
     key <AD03>  { [ e, E, backslash, NoSymbol ] };
-    key <AD04>  { [ r, R, NoSymbol, NoSymbol ] };
+    key <AD04>  { [ r, R, dollar, NoSymbol ] };
     key <AD05>  { [ t, T, NoSymbol, NoSymbol ] };
     key <AD06>  { [ z, Z, NoSymbol, NoSymbol ] };
     key <AD07>  { [ u, U, NoSymbol, NoSymbol ] };
