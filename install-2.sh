@@ -65,5 +65,8 @@ chown $username:$username yay.txt
 chmod u+x install-3.sh
 mv install-3.sh yay.txt /home/$username/.
 
+# Eliminar envvars
+rm envvars
+
 # Salir
 exit
