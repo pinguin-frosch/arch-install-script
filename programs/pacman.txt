@@ -2,13 +2,13 @@ alacritty
 ark
 base-devel
 dolphin
+dolphin-plugins
 efibootmgr
 ffmpegthumbs
 git
 gnome-keyring
 grub
 gwenview
-kdegraphics-mobipocket
 kdegraphics-thumbnailers
 keepassxc
 kimageformats
@@ -23,6 +23,7 @@ os-prober
 partitionmanager
 p7zip
 plasma
+python-pip
 qbittorrent
 qt5-imageformats
 seahorse
