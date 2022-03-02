@@ -14,6 +14,7 @@ keepassxc
 kimageformats
 kwalletmanager
 networkmanager
+noto-fonts-emoji
 ntfs-3g
 nvidia
 nvidia-prime
@@ -23,6 +24,7 @@ os-prober
 partitionmanager
 p7zip
 plasma
+pulseaudio-alsa
 python-pip
 qbittorrent
 qt5-imageformats
