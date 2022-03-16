@@ -13,6 +13,7 @@ gwenview
 kdegraphics-thumbnailers
 keepassxc
 kimageformats
+ksshaskpass
 kwalletmanager
 networkmanager
 noto-fonts-emoji
