@@ -1,10 +1,12 @@
 alacritty
+android-tools
 ark
 base-devel
 dolphin
 dolphin-plugins
 efibootmgr
 ffmpegthumbs
+filelight
 git
 gnome-keyring
 grub
@@ -28,7 +30,6 @@ pulseaudio-alsa
 python-pip
 qbittorrent
 qt5-imageformats
-seahorse
 spectacle
 stow
 unarchiver

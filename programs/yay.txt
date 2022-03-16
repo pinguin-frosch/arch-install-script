@@ -2,3 +2,4 @@ google-chrome
 minecraft-launcher
 opentabletdriver
 visual-studio-code-bin
+kwallet-secrets
