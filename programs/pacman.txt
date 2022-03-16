@@ -8,7 +8,6 @@ efibootmgr
 ffmpegthumbs
 filelight
 git
-gnome-keyring
 grub
 gwenview
 kdegraphics-thumbnailers
