@@ -11,6 +11,7 @@ git
 grub
 gwenview
 kdegraphics-thumbnailers
+kdialog
 keepassxc
 kimageformats
 ksshaskpass
@@ -40,6 +41,5 @@ virtualbox
 virtualbox-guest-iso
 virtualbox-host-modules-arch
 vlc
-xorg-xinit
 zsh
 zsh-completions
