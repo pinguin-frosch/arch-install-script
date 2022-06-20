@@ -16,6 +16,7 @@ keepassxc
 kimageformats
 ksshaskpass
 kwalletmanager
+neovim
 networkmanager
 noto-fonts-emoji
 ntfs-3g
