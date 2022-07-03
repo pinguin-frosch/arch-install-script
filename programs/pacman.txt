@@ -21,6 +21,7 @@ ntfs-3g
 nvidia
 obs-studio
 okular
+openssh
 os-prober
 partitionmanager
 p7zip
@@ -28,10 +29,12 @@ plasma
 qt5-imageformats
 spectacle
 stow
+tmux
 unarchiver
 unrar
 unzip
 vi
 vlc
+xclip
 zsh
 zsh-completions
