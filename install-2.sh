@@ -48,13 +48,9 @@ sed -i "s,<name>custom</name>,<name>pro</name>," /usr/share/X11/xkb/rules/evdev.
 sed -i "s,<shortDescription>custom</shortDescription>,<shortDescription>pro</shortDescription>," /usr/share/X11/xkb/rules/evdev.xml
 sed -i "s,<description>A user-defined custom Layout</description>,<description>programming</description>," /usr/share/X11/xkb/rules/evdev.xml
 sed -i "s,<description>programming</description>,<description>programming</description>\n        <languageList>\n          <iso639Id>spa</iso639Id>\n        </languageList>," /usr/share/X11/xkb/rules/evdev.xml
-echo "setxkbmap pro -option caps:swapescape" >> /usr/share/sddm/scripts/Xsetup
-
-# Fuente
-curl -LJO https://github.com/microsoft/cascadia-code/releases/download/v2111.01/CascadiaCode-2111.01.zip
-unzip CascadiaCode-2111.01.zip
-cp -rf ttf/* /usr/share/fonts
-rm -rf woff2/ otf/ ttf/ CascadiaCode-2111.01.zip
+if [[ $teclado == "s" ]]; then
+    echo "setxkbmap pro -option caps:swapescape" >> /usr/share/sddm/scripts/Xsetup
+fi
 
 # Continuación
 curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-3.sh

@@ -51,6 +51,9 @@ read userpassword
 echo -n "Hostname: "
 read hostname
 
+echo -n "Usar teclado pro (s para sí): "
+read teclado
+
 # Montar
 mount $rootpartition /mnt
 mkdir /mnt/efi && mount $efipartition /mnt/efi
@@ -71,6 +74,7 @@ echo "rootpassword=$rootpassword" >> envvars
 echo "username=$username" >> envvars
 echo "userpassword=$userpassword" >> envvars
 echo "hostname=$hostname" >> envvars
+echo "teclado=$teclado" >> envvars
 mv envvars /mnt
 
 # Fstab y chroot

@@ -1,5 +1,5 @@
 google-chrome
-minecraft-launcher
-opentabletdriver
 visual-studio-code-bin
 kwallet-secrets
+icu69-bin
+nerd-fonts-complete
