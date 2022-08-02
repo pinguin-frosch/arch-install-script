@@ -50,7 +50,7 @@ fi
 echo -n "¿Formatear home? [s/n]: "
 read home
 if [[ $home == "s" ]]; then
-    mkfs.ext4 $rootpartition
+    mkfs.ext4 $homepartition
 fi
 
 echo -n "¿Formatear swap? [s/n]: "
