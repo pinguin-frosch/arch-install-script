@@ -91,7 +91,7 @@ mount --mkdir $homepartition /mnt/home
 swapon $swappartition
 
 # Asegurar que las firmas no estén vencidas
-pacman -Sy archlinux-keyring
+pacman -Sy --noconfirm archlinux-keyring
 
 # Instalación básica
 pacstrap /mnt base linux linux-firmware
