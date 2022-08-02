@@ -3,3 +3,4 @@ visual-studio-code-bin
 kwallet-secrets
 icu69-bin
 nerd-fonts-complete
+nvim-packer-git

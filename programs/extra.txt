@@ -1,0 +1,15 @@
+obs-studio
+vlc
+alacritty
+android-tools
+keepassxc
+stow
+tmux
+neovim
+ntfs-3g
+nodejs
+npm
+python-pip
+virtualbox
+virtualbox-host-modules-arch
+virtualbox-guest-iso

@@ -10,8 +10,5 @@ rm -rf yay
 # Paquetes yay
 yay -S --noconfirm --needed - < yay.txt
 
-# Configuración ksshaskpass
-ln -s /usr/bin/ksshaskpass /usr/lib/ssh/ssh-askpass
-
 # Eliminar
-rm -rf ./install-2.sh ./yay.txt
+rm -rf ./install-3.sh ./yay.txt
