@@ -35,8 +35,8 @@ sed -i "s/^# %wheel ALL=(ALL:ALL) ALL.*/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
 
 # Instalación y configuración systemd-boot
 bootctl install
-echo -e "default @saved\ntimeout 2\nconsole-mode max" >> /boot/loader/loader.conf
-echo -e "title Arch Linux\nlinux /vmlinuz-linux\ninitrd /initramfs-linux.img\noptions root=UUID=$root_uuid rw quiet splash"
+echo -e "default @saved\ntimeout 2\nconsole-mode max" > /boot/loader/loader.conf
+echo -e "title Arch Linux\nlinux /vmlinuz-linux\ninitrd /initramfs-linux.img\noptions root=UUID=$root_uuid rw quiet splash" > /boot/loader/entries/arch.conf
 
 # Servicios
 systemctl enable NetworkManager
