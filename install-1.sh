@@ -23,72 +23,66 @@ fi
 
 # Registrar las particiones
 echo -n "Partición efi:  "
-read efipartition
+read efi_partition
 
 echo -n "Partición root: "
-read rootpartition
+read root_partition
 
 echo -n "Partición home: "
-read homepartition
+read home_partition
 
 echo -n "Partición swap: "
-read swappartition
+read swap_partition
 
 # Formatear las particiones condicionalmente
 echo -n "¿Formatear efi? [s/n]:  "
 read efi
 if [[ $efi == "s" ]]; then
-    mkfs.fat -F 32 $efipartition
+    mkfs.fat -F 32 $efi_partition
 fi
 
 echo -n "¿Formatear root? [s/n]: "
 read root
 if [[ $root == "s" ]]; then
-    mkfs.ext4 $rootpartition
+    mkfs.ext4 $root_partition
 fi
 
 echo -n "¿Formatear home? [s/n]: "
 read home
 if [[ $home == "s" ]]; then
-    mkfs.ext4 $homepartition
+    mkfs.ext4 $home_partition
 fi
 
 echo -n "¿Formatear swap? [s/n]: "
 read swap
 if [[ $swap == "s" ]]; then
-    mkswap $swappartition
+    mkswap $swap_partition
 fi
 
 # Inputs
 echo -n "Contraseña root: "
-read rootpassword
+read root_password
 
 echo -n "Nombre de usuario: "
 read username
 
 echo -n "Contraseña de usuario: "
-read userpassword
+read user_password
 
 echo -n "Hostname: "
 read hostname
-
-echo -n "¿Usar teclado pro? [s/n]: "
-read pro
-
-echo -n "¿Usar zsh? [s/n]: "
-read zsh
-
-echo -n "¿Instalar software extra? [s/n]: "
-read extra
 
 echo -n "¿Instalar drivers nvidia? [s/n]: "
 read nvidia
 
 # Montar las particiones
-mount $rootpartition /mnt
-mount --mkdir $efipartition /mnt/boot
-mount --mkdir $homepartition /mnt/home
-swapon $swappartition
+mount $root_partition /mnt
+mount --mkdir $efi_partition /mnt/boot
+mount --mkdir $home_partition /mnt/home
+swapon $swap_partition
+
+# Obtener uuid de root
+root_uuid=$(lsblk -dno $root_partition)
 
 # Asegurar que las firmas no estén vencidas
 pacman -Sy --noconfirm archlinux-keyring
@@ -98,20 +92,17 @@ pacstrap /mnt base linux linux-firmware
 
 # Obtener parte 2
 curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-2.sh
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/esencial.txt
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/extra.txt
+curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/pacman.txt
 chmod +x install-2.sh
-mv install-2.sh esencial.txt extra.ext /mnt
+mv install-2.sh pacman.txt /mnt
 
 # Pasar datos a install-2.sh
-echo "rootpassword=$rootpassword" >> envvars
+echo "root_password=$root_password" >> envvars
 echo "username=$username" >> envvars
-echo "userpassword=$userpassword" >> envvars
+echo "user_password=$user_password" >> envvars
 echo "hostname=$hostname" >> envvars
-echo "pro=$pro" >> envvars
-echo "zsh=$zsh" >> envvars
-echo "extra=$extra" >> envvars
 echo "nvidia=$nvidia" >> envvars
+echo "root_uuid=$root_uuid" >> envvars
 mv envvars /mnt
 
 # Fstab y chroot
@@ -119,6 +110,5 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt ./install-2.sh
 
 # Reiniciar
-rm /mnt/install-2.sh /mnt/esencial.txt /mnt/extra.txt
-
+rm /mnt/install-2.sh /mnt/pacman.txt
 reboot

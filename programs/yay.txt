@@ -1,6 +1,6 @@
 google-chrome
-visual-studio-code-bin
-kwallet-secrets
 icu69-bin
-nerd-fonts-complete
+nerd-fonts-mononoki
+nerd-fonts-cascadia-code
 nvim-packer-git
+visual-studio-code-bin

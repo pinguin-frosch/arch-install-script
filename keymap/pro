@@ -35,7 +35,7 @@ xkb_symbols "Programming" {
     key <AC02>  { [ s, S, parenleft ] };
     key <AC03>  { [ d, D, parenright ] };
     key <AC04>  { [ f, F, greater ] };
-    key <AC05>  { [ g, G ] };
+    key <AC05>  { [ g, G, percent ] };
     key <AC06>  { [ h, H ] };
     key <AC07>  { [ j, J ] };
     key <AC08>  { [ k, K ] };
