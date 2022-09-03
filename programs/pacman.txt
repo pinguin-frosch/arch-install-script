@@ -11,7 +11,6 @@ dolphin-plugins
 efibootmgr
 ffmpegthumbs
 git
-grub
 gwenview
 jdk-openjdk
 kcalc
@@ -39,7 +38,6 @@ ntfs-3g
 obs-studio
 okular
 openssh
-os-prober
 p7zip
 partitionmanager
 plasma
