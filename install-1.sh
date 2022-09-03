@@ -82,7 +82,7 @@ mount --mkdir $home_partition /mnt/home
 swapon $swap_partition
 
 # Obtener uuid de root
-root_uuid=$(lsblk -dno $root_partition)
+root_uuid=$(lsblk -dno UUID $root_partition)
 
 # Asegurar que las firmas no estén vencidas
 pacman -Sy --noconfirm archlinux-keyring
