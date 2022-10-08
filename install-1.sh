@@ -81,8 +81,9 @@ mount --mkdir $efi_partition /mnt/boot
 mount --mkdir $home_partition /mnt/home
 swapon $swap_partition
 
-# Obtener uuid de root
+# Obtener uuid de root y swap
 root_uuid=$(lsblk -dno UUID $root_partition)
+swap_uuid=$(lsblk -dno UUID $swap_partition)
 
 # Asegurar que las firmas no estén vencidas
 pacman -Sy --noconfirm archlinux-keyring
@@ -103,6 +104,7 @@ echo "user_password=$user_password" >> envvars
 echo "hostname=$hostname" >> envvars
 echo "nvidia=$nvidia" >> envvars
 echo "root_uuid=$root_uuid" >> envvars
+echo "swap_uuid=$swap_uuid" >> envvars
 mv envvars /mnt
 
 # Fstab y chroot
