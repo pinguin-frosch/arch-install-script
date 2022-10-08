@@ -21,7 +21,7 @@ xkb_symbols "Programming" {
     key <AD02>  { [ w, W, slash ] };
     key <AD03>  { [ e, E, backslash ] };
     key <AD04>  { [ r, R, dollar ] };
-    key <AD05>  { [ t, T ] };
+    key <AD05>  { [ t, T, ampersand ] };
     key <AD06>  { [ z, Z ] };
     key <AD07>  { [ u, U ] };
     key <AD08>  { [ i, I ] };
