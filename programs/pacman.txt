@@ -4,6 +4,7 @@ ark
 base-devel
 bluez
 bluez-utils
+boost
 clang
 cups
 dolphin
@@ -56,8 +57,8 @@ vim
 virtualbox
 virtualbox-guest-iso
 virtualbox-host-modules-arch
-wget
 vlc
+wget
 xclip
 zsh
 zsh-completions

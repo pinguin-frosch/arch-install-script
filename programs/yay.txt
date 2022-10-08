@@ -1,6 +1,7 @@
+auto-cpufreq
 google-chrome
 icu69-bin
-nerd-fonts-mononoki
 nerd-fonts-cascadia-code
+nerd-fonts-mononoki
 nvim-packer-git
 visual-studio-code-bin
