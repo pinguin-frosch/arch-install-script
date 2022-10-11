@@ -38,6 +38,9 @@ bootctl install
 echo -e "default @saved\ntimeout 2\nconsole-mode max" > /boot/loader/loader.conf
 echo -e "title Arch Linux\nlinux /vmlinuz-linux\ninitrd /initramfs-linux.img\noptions root=UUID=$root_uuid rw quiet loglevel=3 resume=UUID=$swap_uuid" > /boot/loader/entries/arch.conf
 
+# Registrar hook para hibernación
+sed -i "s|keyboard|resume keyboard|" /etc/mkinitcpio.conf
+
 # Servicios
 systemctl enable NetworkManager
 systemctl enable sddm
