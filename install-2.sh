@@ -40,6 +40,7 @@ echo -e "title Arch Linux\nlinux /vmlinuz-linux\ninitrd /initramfs-linux.img\nop
 
 # Registrar hook para hibernación
 sed -i "s|keyboard|resume keyboard|" /etc/mkinitcpio.conf
+mkinitcpio -p linux
 
 # Servicios
 systemctl enable NetworkManager
