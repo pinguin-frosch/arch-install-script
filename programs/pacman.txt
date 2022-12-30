@@ -7,6 +7,8 @@ bluez-utils
 boost
 clang
 cups
+docker
+docker-compose
 dolphin
 dolphin-plugins
 efibootmgr
