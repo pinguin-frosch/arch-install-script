@@ -19,7 +19,6 @@ echo -e "$root_password\n$root_password" | passwd
 useradd -m $username
 echo -e "$user_password\n$user_password" | passwd $username
 usermod -aG wheel $username
-usermod -s /usr/bin/zsh $username
 
 # Configuración básica
 echo "$hostname" >> /etc/hostname
@@ -56,7 +55,6 @@ mv pro /usr/share/X11/xkb/symbols/.
 echo "setxkbmap latam,pro" >> /usr/share/sddm/scripts/Xsetup
 
 # Instalar yay
-cd /home/$username
 su - $username
 git clone https://aur.archlinux.org/yay.git
 cd yay
@@ -66,12 +64,12 @@ rm -rf yay
 
 # Instalar paquetes yay
 curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/yay.txt
-$user_password | yay -S --noconfirm --needed - < yay.txt
+echo $user_password | yay -S --noconfirm --needed - < yay.txt
 rm -rf ./install-3.sh ./yay.txt
 
-# Volver al usuario root
-cd /
+# Volver al usuario root y cambiar shell
 logout
+usermod -s /usr/bin/zsh $username
 
 # Eliminar envvars
 rm envvars
