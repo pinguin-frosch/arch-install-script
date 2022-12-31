@@ -19,6 +19,7 @@ echo -e "$root_password\n$root_password" | passwd
 useradd -m $username
 echo -e "$user_password\n$user_password" | passwd $username
 usermod -aG wheel $username
+usermod -s /usr/bin/zsh $username
 
 # Configuración básica
 echo "$hostname" >> /etc/hostname
@@ -54,12 +55,13 @@ mv pro /usr/share/X11/xkb/symbols/.
 # Configurar teclado en sddm
 echo "setxkbmap latam,pro" >> /usr/share/sddm/scripts/Xsetup
 
-# Instalar yay
+# Continuación
 curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-3.sh
-su -p $username -c "curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-3.sh; curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/yay.txt; sh install-3.sh; exit"
-
-# Cambiar shell a zsh
-usermod -s /usr/bin/zsh $username
+curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/yay.txt
+chown $username:$username install-3.sh
+chown $username:$username yay.txt
+chmod u+x install-3.sh
+mv install-3.sh yay.txt /home/$username/.
 
 # Eliminar envvars
 rm envvars
