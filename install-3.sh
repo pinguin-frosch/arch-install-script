@@ -3,7 +3,7 @@
 # Yay
 git clone https://aur.archlinux.org/yay.git
 cd yay
-makepkg -si --noconfirm
+sudo -S makepkg -si --noconfirm
 cd ..
 rm -rf yay
 
