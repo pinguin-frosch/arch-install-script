@@ -8,7 +8,7 @@ cd ..
 rm -rf yay
 
 # Paquetes yay
-yay -S --noconfirm --needed - < yay.txt
+echo $user_password | yay -S --noconfirm --needed - < yay.txt
 
 # Eliminar
 rm -rf ./install-3.sh ./yay.txt

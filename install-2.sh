@@ -55,20 +55,10 @@ mv pro /usr/share/X11/xkb/symbols/.
 echo "setxkbmap latam,pro" >> /usr/share/sddm/scripts/Xsetup
 
 # Instalar yay
-su - $username
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si --noconfirm
-cd ..
-rm -rf yay
+curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-3.sh
+su -p - $username -c "curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-3.sh; curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/yay.txt; sh install-3.sh; logout"
 
-# Instalar paquetes yay
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/yay.txt
-echo $user_password | yay -S --noconfirm --needed - < yay.txt
-rm -rf ./install-3.sh ./yay.txt
-
-# Volver al usuario root y cambiar shell
-logout
+# Cambiar shell a zsh
 usermod -s /usr/bin/zsh $username
 
 # Eliminar envvars
