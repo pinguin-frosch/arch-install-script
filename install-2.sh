@@ -56,7 +56,7 @@ echo "setxkbmap latam,pro" >> /usr/share/sddm/scripts/Xsetup
 
 # Instalar yay
 curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-3.sh
-su -p - $username -c "curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-3.sh; curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/yay.txt; sh install-3.sh; logout"
+su -p $username -c "curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-3.sh; curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/yay.txt; sh install-3.sh; exit"
 
 # Cambiar shell a zsh
 usermod -s /usr/bin/zsh $username
