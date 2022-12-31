@@ -55,13 +55,23 @@ mv pro /usr/share/X11/xkb/symbols/.
 # Configurar teclado en sddm
 echo "setxkbmap latam,pro" >> /usr/share/sddm/scripts/Xsetup
 
-# Continuación
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-3.sh
+# Instalar yay
+cd /home/$username
+su - $username
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si --noconfirm
+cd ..
+rm -rf yay
+
+# Instalar paquetes yay
 curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/yay.txt
-chown $username:$username install-3.sh
-chown $username:$username yay.txt
-chmod u+x install-3.sh
-mv install-3.sh yay.txt /home/$username/.
+$user_password | yay -S --noconfirm --needed - < yay.txt
+rm -rf ./install-3.sh ./yay.txt
+
+# Volver al usuario root
+cd /
+logout
 
 # Eliminar envvars
 rm envvars
