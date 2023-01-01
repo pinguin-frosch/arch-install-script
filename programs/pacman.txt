@@ -51,6 +51,8 @@ spectacle
 stow
 system-config-printer
 tmux
+tor
+torbrowser-launcher
 unarchiver
 unrar
 unzip
