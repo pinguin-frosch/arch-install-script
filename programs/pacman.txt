@@ -6,6 +6,8 @@ bluez
 bluez-utils
 boost
 clang
+colord
+colord-kde
 cups
 docker
 docker-compose
@@ -15,6 +17,7 @@ efibootmgr
 ffmpegthumbs
 gimp
 git
+gnome-color-manager
 gwenview
 jdk-openjdk
 kcalc
