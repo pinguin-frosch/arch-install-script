@@ -17,6 +17,7 @@ efibootmgr
 ffmpegthumbs
 gimp
 git
+github-cli
 gnome-color-manager
 gwenview
 jdk-openjdk
