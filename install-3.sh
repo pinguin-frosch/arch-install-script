@@ -7,6 +7,9 @@ makepkg -si --noconfirm
 cd ..
 rm -rf yay
 
+# Obtener paquetes yay
+curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/yay.txt
+
 # Paquetes yay
 yay -S --noconfirm --needed - < yay.txt
 
