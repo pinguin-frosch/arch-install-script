@@ -1,9 +1,9 @@
-auto-cpufreq
 emulation-station
 google-chrome
 httptoolkit-bin
 icu69-bin
 insomnia-bin
+insync
 nerd-fonts-complete
 nvim-packer-git
 onlyoffice-bin
