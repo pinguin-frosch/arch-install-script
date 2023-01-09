@@ -1,4 +1,4 @@
-emulation-station
+emulationstation
 google-chrome
 httptoolkit-bin
 icu69-bin
