@@ -48,6 +48,7 @@ systemctl enable sddm
 systemctl enable bluetooth
 systemctl enable cups
 systemctl enable power-profiles-daemon
+systemctl enable docker
 
 # Descargar y registrar pro
 curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/keymap/pro
