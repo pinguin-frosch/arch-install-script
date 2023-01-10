@@ -38,6 +38,7 @@ krita
 ksshaskpass
 ksystemlog
 kwalletmanager
+libretro-core-info
 man-db
 man-pages
 neovim
