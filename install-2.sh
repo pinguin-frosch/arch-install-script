@@ -26,6 +26,8 @@ echo "$hostname" >> /etc/hostname
 ln -sf /usr/share/zoneinfo/America/Santiago /etc/localtime
 hwclock --systohc
 sed -i "s/^#es_CL.UTF-8 UTF-8/es_CL.UTF-8 UTF-8/" /etc/locale.gen
+sed -i "s/^#Color/Color/" /etc/pacman.conf
+sed -i "s/^#Parallel.*/ParallelDownloads = 5/" /etc/pacman.conf
 locale-gen
 echo "LANG=es_CL.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=la-latin1" >> /etc/vconsole.conf
