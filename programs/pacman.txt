@@ -60,6 +60,7 @@ powerdevil
 print-manager
 python-pip
 qt5-imageformats
+reflector
 retroarch
 retroarch-assets-ozone
 spectacle
