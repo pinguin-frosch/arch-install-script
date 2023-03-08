@@ -21,6 +21,7 @@ github-cli
 gnome-color-manager
 gwenview
 jdk-openjdk
+jq
 kcalc
 kcharselect
 kcm-wacomtablet
