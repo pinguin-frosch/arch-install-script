@@ -60,7 +60,7 @@ curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/m
 mv pro /usr/share/X11/xkb/symbols/.
 
 # Configurar teclado en sddm
-echo "setxkbmap latam,pro" >> /usr/share/sddm/scripts/Xsetup
+echo "setxkbmap pro,latam" >> /usr/share/sddm/scripts/Xsetup
 
 # Continuación
 curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-3.sh
