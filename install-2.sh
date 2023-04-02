@@ -56,14 +56,14 @@ systemctl enable power-profiles-daemon
 systemctl enable docker
 
 # Descargar y registrar pro
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/keymap/pro
+curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$rama/keymap/pro
 mv pro /usr/share/X11/xkb/symbols/.
 
 # Configurar teclado en sddm
 echo "setxkbmap pro,latam" >> /usr/share/sddm/scripts/Xsetup
 
 # Continuación
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-3.sh
+curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$rama/install-3.sh
 chown $username:$username install-3.sh
 chmod u+x install-3.sh
 mv install-3.sh yay.txt /home/$username/.

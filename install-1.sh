@@ -92,8 +92,8 @@ pacman -Sy --noconfirm archlinux-keyring
 pacstrap /mnt base linux linux-firmware
 
 # Obtener parte 2
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/install-2.sh
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/pacman.txt
+curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$rama/install-2.sh
+curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$rama/programs/pacman.txt
 chmod +x install-2.sh
 mv install-2.sh pacman.txt /mnt
 
@@ -105,6 +105,7 @@ echo "hostname=$hostname" >> envvars
 echo "nvidia=$nvidia" >> envvars
 echo "root_uuid=$root_uuid" >> envvars
 echo "swap_uuid=$swap_uuid" >> envvars
+echo "rama=$rama" >> envvars
 mv envvars /mnt
 
 # Fstab y chroot

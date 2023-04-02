@@ -8,7 +8,7 @@ cd ..
 rm -rf yay
 
 # Obtener paquetes yay
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/main/programs/yay.txt
+curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$rama/programs/yay.txt
 
 # Paquetes yay
 yay -S --noconfirm --needed - < yay.txt
