@@ -21,7 +21,7 @@ echo -e "$root_password\n$root_password" | passwd
 # Creación y configuración usuario
 useradd -m $username
 echo -e "$user_password\n$user_password" | passwd $username
-usermod -aG wheel docker vboxusers $username
+usermod -aG wheel,docker,vboxusers $username
 usermod -s /usr/bin/zsh $username
 
 # Configuración básica
