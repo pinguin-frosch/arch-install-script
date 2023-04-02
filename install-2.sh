@@ -37,6 +37,7 @@ echo "KEYMAP=la-latin1" >> /etc/vconsole.conf
 
 # Configuración sudo
 sed -i "s/^# %wheel ALL=(ALL:ALL) ALL.*/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
+echo "Defaults timestamp_timeout=30" >> /etc/sudoers
 
 # Instalación y configuración systemd-boot
 bootctl install
@@ -62,11 +63,26 @@ mv pro /usr/share/X11/xkb/symbols/.
 # Configurar teclado en sddm
 echo "setxkbmap pro,latam" >> /usr/share/sddm/scripts/Xsetup
 
-# Continuación
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$rama/install-3.sh
-chown $username:$username install-3.sh
-chmod u+x install-3.sh
-mv install-3.sh yay.txt /home/$username/.
+# Descargar yay y los paquetes de AUR
+curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$rama/programs/yay.txt
+git clone https://aur.archlinux.org/yay.git
+
+# Mover archivos a /home/$username
+chown -R $username:$username yay yay.txt
+mv yay.txt yay /home/$username
+
+sudo -u $username bash << EOF
+    cd /home/$username
+    cd yay
+
+    # Solo sudo soporta leer la contraseña de stdin
+    echo $user_password | sudo -S pwd
+
+    makepkg -si --noconfirm
+    cd ..
+    yay -S --noconfirm --needed - < yay.txt
+    rm -rf yay yay.txt
+EOF
 
 # Eliminar envvars
 rm envvars
