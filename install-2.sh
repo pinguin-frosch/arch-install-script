@@ -7,6 +7,9 @@ source envvars
 pacman -S --noconfirm --needed - < pacman.txt
 ln -s /usr/bin/ksshaskpass /usr/lib/ssh/ssh-askpass
 
+# Software a borrar
+pacman -Rns --noconfirm discover
+
 # Nvidia
 if [[ $nvidia == "s" ]]; then
     pacman -S --noconfirm --needed nvidia nvidia-utils nvidia-settings nvidia-prime

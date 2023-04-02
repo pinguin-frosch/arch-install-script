@@ -1,10 +1,5 @@
-emulationstation
 google-chrome
-httptoolkit-bin
-icu69-bin
 insomnia-bin
 insync
-nerd-fonts-complete
-nvim-packer-git
 onlyoffice-bin
 visual-studio-code-bin
