@@ -75,6 +75,9 @@ read hostname
 echo -n "¿Instalar drivers nvidia? [s/n]: "
 read nvidia
 
+echo -n "¿Instalar dotfiles? [s/n]: "
+read dotfiles
+
 # Montar las particiones
 mount $root_partition /mnt
 mount --mkdir $efi_partition /mnt/boot
@@ -106,6 +109,7 @@ echo "nvidia=$nvidia" >> envvars
 echo "root_uuid=$root_uuid" >> envvars
 echo "swap_uuid=$swap_uuid" >> envvars
 echo "rama=$rama" >> envvars
+echo "dotfiles=$dotfiles" >> envvars
 mv envvars /mnt
 
 # Fstab y chroot

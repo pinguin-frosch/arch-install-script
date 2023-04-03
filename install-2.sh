@@ -84,8 +84,21 @@ sudo -u $username bash << EOF
     rm -rf yay yay.txt
 EOF
 
+# Descargar y configurar dotfiles
+if [[ $dotfiles == "s" ]]; then
+    git clone https://github.com/pinguin-frosch/dotfiles.git
+    chown -R $username:$username dotfiles
+    mkdir -p /home/$username/Programación
+    mv dotfiles /home/$username/Programación
+    cd /home/$username/Programación/dotfiles
+    stow --target=/home/$username */
+    sudo -u $username bash << EOF
+        git remote set-url origin git@github.com:pinguin-frosch/dotfiles.git
+EOF
+fi
+
 # Eliminar envvars
-rm envvars
+rm /envvars
 
 # Salir
 exit
