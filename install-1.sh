@@ -72,6 +72,12 @@ read user_password
 echo -n "Hostname: "
 read hostname
 
+echo -n "Directorio de trabajo: "
+read workdir
+
+echo -n "Shell: "
+read shell
+
 echo -n "¿Instalar drivers nvidia? [s/n]: "
 read nvidia
 
@@ -110,6 +116,8 @@ echo "root_uuid=$root_uuid" >> envvars
 echo "swap_uuid=$swap_uuid" >> envvars
 echo "rama=$rama" >> envvars
 echo "dotfiles=$dotfiles" >> envvars
+echo "workdir=$workdir" >> envvars
+echo "shell=$shell" >> envvars
 mv envvars /mnt
 
 # Fstab y chroot

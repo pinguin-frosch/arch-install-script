@@ -22,7 +22,7 @@ echo -e "$root_password\n$root_password" | passwd
 useradd -m $username
 echo -e "$user_password\n$user_password" | passwd $username
 usermod -aG wheel,docker,vboxusers $username
-usermod -s /usr/bin/zsh $username
+usermod -s /usr/bin/$shell $username
 
 # Configuración básica
 echo "$hostname" >> /etc/hostname
@@ -88,10 +88,10 @@ EOF
 if [[ $dotfiles == "s" ]]; then
     git clone https://github.com/pinguin-frosch/dotfiles.git
     chown -R $username:$username dotfiles
-    mkdir -p /home/$username/Programación
-    mv dotfiles /home/$username/Programación
-    cd /home/$username/Programación/dotfiles
-    stow --target=/home/$username */
+    mkdir -p /home/$username/$workdir
+    mv dotfiles /home/$username/$workdir
+    cd /home/$username/$workdir/dotfiles
+    bash setup.sh stow
     sudo -u $username bash << EOF
         git remote set-url origin git@github.com:pinguin-frosch/dotfiles.git
 EOF
