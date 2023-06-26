@@ -107,7 +107,7 @@ env | grep "^arch" | sed "s|\(.*\)|export \1|" > /mnt/arch/envvars
 
 # Fstab y chroot
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt /arch-install-script/install-2.sh
+arch-chroot /mnt /arch/install-2.sh
 
 # Reiniciar
 rm -rf /mnt/arch

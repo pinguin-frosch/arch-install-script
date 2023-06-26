@@ -27,16 +27,17 @@ usermod -s /usr/bin/$arch_shell $arch_username
 echo "$arch_hostname" >> /etc/hostname
 ln -sf /usr/share/zoneinfo/America/Santiago /etc/localtime
 hwclock --systohc
-sed -i "s/^#es_CL.UTF-8 UTF-8/es_CL.UTF-8 UTF-8/" /etc/locale.gen
-sed -i "s/^#Color/Color/" /etc/pacman.conf
-sed -i "s/^#Parallel.*/ParallelDownloads = 5/" /etc/pacman.conf
+sed -i "s/^#\(es_CL.*UTF-8\)/\1/" /etc/locale.gen
+sed -i "s/^#\(en_US.*UTF-8\)/\1/" /etc/locale.gen
+sed -i "s/^#\(de_DE.*UTF-8\)/\1/" /etc/locale.gen
 locale-gen
+sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
+sed -i "s/^#\(Parallel.*\)/\1/" /etc/pacman.conf
 echo "LANG=es_CL.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=la-latin1" >> /etc/vconsole.conf
 
 # Configuración sudo
-sed -i "s/^# %wheel ALL=(ALL:ALL) ALL.*/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
-echo "Defaults timestamp_timeout=30" >> /etc/sudoers
+sed -i "s/^# \(%wheel ALL=(ALL:ALL) ALL\)/\1/" /etc/sudoers
 
 # Instalación y configuración systemd-boot
 bootctl install
@@ -44,7 +45,7 @@ echo -e "default @saved\ntimeout 2\nconsole-mode max" > /boot/loader/loader.conf
 envsubst < /arch/assets/arch.conf.tpl > /boot/loader/entries/arch.conf
 
 # Registrar hook para hibernación
-sed -i "s|keyboard|resume keyboard|" /etc/mkinitcpio.conf
+sed -i "s/^\(HOOKS=.*filesystems\)/\1 resume/" /etc/mkinitcpio.conf
 mkinitcpio -p linux
 
 # Servicios
@@ -58,8 +59,8 @@ systemctl enable docker
 # Copiar la distribución de teclado
 mv /arch/assets/pro /usr/share/X11/xkb/symbols/
 
-# Configurar teclado en sddm
-echo "setxkbmap pro,latam" >> /usr/share/sddm/scripts/Xsetup
+# Configurar distribución de teclado
+localectl set-x11-keymap pro,latam
 
 # Preparar paquetes de aur y yay para el usuario
 git clone https://aur.archlinux.org/yay.git
