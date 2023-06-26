@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# Recuperar datos install-1.sh
-source envvars
+# Recuperar variables desde install-1.sh
+source /arch/envvars
 
-# Software a instalar
-pacman -S --noconfirm --needed - < pacman.txt
-ln -s /usr/bin/ksshaskpass /usr/lib/ssh/ssh-askpass
-
-# Software a borrar
+# Admnistración de paquetes
+pacman -S --noconfirm --needed - < /arch/packages/system.txt
+pacman -S --noconfirm --needed - < /arch/packages/desktop.txt
 pacman -Rns --noconfirm discover
+ln -s /usr/bin/ksshaskpass /usr/lib/ssh/ssh-askpass
 
 # Nvidia
 if [[ $arch_nvidia == "s" ]]; then
@@ -42,7 +41,7 @@ echo "Defaults timestamp_timeout=30" >> /etc/sudoers
 # Instalación y configuración systemd-boot
 bootctl install
 echo -e "default @saved\ntimeout 2\nconsole-mode max" > /boot/loader/loader.conf
-echo -e "title Arch Linux\nlinux /vmlinuz-linux\ninitrd /initramfs-linux.img\noptions root=UUID=$root_uuid rw quiet loglevel=3 resume=UUID=$swap_uuid" > /boot/loader/entries/arch.conf
+envsubst < /arch/assets/arch.conf.tpl > /boot/loader/entries/arch.conf
 
 # Registrar hook para hibernación
 sed -i "s|keyboard|resume keyboard|" /etc/mkinitcpio.conf
@@ -56,49 +55,26 @@ systemctl enable cups
 systemctl enable power-profiles-daemon
 systemctl enable docker
 
-# Descargar y registrar pro
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$rama/keymap/pro
-mv pro /usr/share/X11/xkb/symbols/.
+# Copiar la distribución de teclado
+mv /arch/assets/pro /usr/share/X11/xkb/symbols/
 
 # Configurar teclado en sddm
 echo "setxkbmap pro,latam" >> /usr/share/sddm/scripts/Xsetup
 
-# Descargar yay y los paquetes de AUR
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$rama/programs/yay.txt
+# Preparar paquetes de aur y yay para el usuario
 git clone https://aur.archlinux.org/yay.git
+chown -R $arch_username:$arch_username yay /arch/packages/aur.txt
+mv yay /arch/packages/aur.txt /home/$arch_username
 
-# Mover archivos a /home/$username
-chown -R $arch_username:$arch_username yay yay.txt
-mv yay.txt yay /home/$arch_username
-
+# Instalar yay en el sistema
 sudo -u $arch_username bash << EOF
-    cd /home/$arch_username
-    cd yay
-
-    # Solo sudo soporta leer la contraseña de stdin
+    cd /home/$arch_username/yay
     echo $arch_user_password | sudo -S pwd
-
     makepkg -si --noconfirm
-    cd ..
-    yay -S --noconfirm --needed - < yay.txt
-    rm -rf yay yay.txt
 EOF
 
-# Descargar y configurar dotfiles
-if [[ $arch_dotfiles == "s" ]]; then
-    git clone https://github.com/pinguin-frosch/dotfiles.git
-    chown -R $arch_username:$arch_username dotfiles
-    mkdir -p /home/$arch_username/$arch_workdir
-    mv dotfiles /home/$arch_username/$arch_workdir
-    cd /home/$arch_username/$workdir/dotfiles
-    bash setup.sh stow
-    sudo -u $arch_username bash << EOF
-        git remote set-url origin git@github.com:pinguin-frosch/dotfiles.git
-EOF
-fi
-
-# Eliminar envvars
-rm /envvars
+# Borrar repositorio de yay
+rm -r /home/$arch_username/yay
 
 # Salir
 exit

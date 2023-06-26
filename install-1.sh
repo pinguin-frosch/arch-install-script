@@ -62,27 +62,27 @@ fi
 # Inputs
 echo -n "Contraseña root: "
 read arch_root_password
+export arch_root_password
 
 echo -n "Nombre de usuario: "
 read arch_username
+export arch_username
 
 echo -n "Contraseña de usuario: "
 read arch_user_password
+export arch_user_password
 
 echo -n "Hostname: "
 read arch_hostname
-
-echo -n "Directorio de trabajo: "
-read arch_workdir
+export arch_hostname
 
 echo -n "Shell: "
 read arch_shell
+export arch_shell
 
 echo -n "¿Instalar drivers nvidia? [s/n]: "
 read arch_nvidia
-
-echo -n "¿Instalar dotfiles? [s/n]: "
-read arch_dotfiles
+export arch_nvidia
 
 # Montar las particiones
 mount $root_partition /mnt
@@ -100,19 +100,15 @@ pacman -Sy --noconfirm archlinux-keyring
 # Instalación básica
 pacstrap /mnt base linux linux-firmware
 
-# Obtener parte 2
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$rama/install-2.sh
-curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$rama/programs/pacman.txt
-chmod +x install-2.sh
-mv install-2.sh pacman.txt /mnt
-
-# Pasar datos a install-2.sh
-env | grep "^arch" | sed "s|\(.*\)|export \1|" > /mnt/envvars
+# Copiar todo lo necesario al sistema
+cp -r /root/arch-install-script /mnt/arch
+chmod +x /mnt/arch/install-2.sh
+env | grep "^arch" | sed "s|\(.*\)|export \1|" > /mnt/arch/envvars
 
 # Fstab y chroot
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt ./install-2.sh
+arch-chroot /mnt /arch-install-script/install-2.sh
 
 # Reiniciar
-rm /mnt/install-2.sh /mnt/pacman.txt
+rm -rf /mnt/arch
 reboot
