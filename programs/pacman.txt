@@ -12,6 +12,7 @@ docker
 docker-compose
 dolphin
 dolphin-plugins
+fish
 ffmpegthumbs
 git
 go
