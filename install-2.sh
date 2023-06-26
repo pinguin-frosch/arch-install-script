@@ -11,21 +11,21 @@ ln -s /usr/bin/ksshaskpass /usr/lib/ssh/ssh-askpass
 pacman -Rns --noconfirm discover
 
 # Nvidia
-if [[ $nvidia == "s" ]]; then
+if [[ $arch_nvidia == "s" ]]; then
     pacman -S --noconfirm --needed nvidia nvidia-utils nvidia-settings nvidia-prime
 fi
 
 # Contraseña root
-echo -e "$root_password\n$root_password" | passwd
+echo -e "$arch_root_password\n$arch_root_password" | passwd
 
 # Creación y configuración usuario
-useradd -m $username
-echo -e "$user_password\n$user_password" | passwd $username
-usermod -aG wheel,docker,vboxusers $username
-usermod -s /usr/bin/$shell $username
+useradd -m $arch_username
+echo -e "$arch_user_password\n$arch_user_password" | passwd $arch_username
+usermod -aG wheel,docker,vboxusers $arch_username
+usermod -s /usr/bin/$arch_shell $arch_username
 
 # Configuración básica
-echo "$hostname" >> /etc/hostname
+echo "$arch_hostname" >> /etc/hostname
 ln -sf /usr/share/zoneinfo/America/Santiago /etc/localtime
 hwclock --systohc
 sed -i "s/^#es_CL.UTF-8 UTF-8/es_CL.UTF-8 UTF-8/" /etc/locale.gen
@@ -68,15 +68,15 @@ curl -LJO https://raw.githubusercontent.com/pinguin-frosch/arch-install-script/$
 git clone https://aur.archlinux.org/yay.git
 
 # Mover archivos a /home/$username
-chown -R $username:$username yay yay.txt
-mv yay.txt yay /home/$username
+chown -R $arch_username:$arch_username yay yay.txt
+mv yay.txt yay /home/$arch_username
 
-sudo -u $username bash << EOF
-    cd /home/$username
+sudo -u $arch_username bash << EOF
+    cd /home/$arch_username
     cd yay
 
     # Solo sudo soporta leer la contraseña de stdin
-    echo $user_password | sudo -S pwd
+    echo $arch_user_password | sudo -S pwd
 
     makepkg -si --noconfirm
     cd ..
@@ -85,14 +85,14 @@ sudo -u $username bash << EOF
 EOF
 
 # Descargar y configurar dotfiles
-if [[ $dotfiles == "s" ]]; then
+if [[ $arch_dotfiles == "s" ]]; then
     git clone https://github.com/pinguin-frosch/dotfiles.git
-    chown -R $username:$username dotfiles
-    mkdir -p /home/$username/$workdir
-    mv dotfiles /home/$username/$workdir
-    cd /home/$username/$workdir/dotfiles
+    chown -R $arch_username:$arch_username dotfiles
+    mkdir -p /home/$arch_username/$arch_workdir
+    mv dotfiles /home/$arch_username/$arch_workdir
+    cd /home/$arch_username/$workdir/dotfiles
     bash setup.sh stow
-    sudo -u $username bash << EOF
+    sudo -u $arch_username bash << EOF
         git remote set-url origin git@github.com:pinguin-frosch/dotfiles.git
 EOF
 fi

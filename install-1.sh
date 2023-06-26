@@ -61,28 +61,28 @@ fi
 
 # Inputs
 echo -n "Contraseña root: "
-read root_password
+read arch_root_password
 
 echo -n "Nombre de usuario: "
-read username
+read arch_username
 
 echo -n "Contraseña de usuario: "
-read user_password
+read arch_user_password
 
 echo -n "Hostname: "
-read hostname
+read arch_hostname
 
 echo -n "Directorio de trabajo: "
-read workdir
+read arch_workdir
 
 echo -n "Shell: "
-read shell
+read arch_shell
 
 echo -n "¿Instalar drivers nvidia? [s/n]: "
-read nvidia
+read arch_nvidia
 
 echo -n "¿Instalar dotfiles? [s/n]: "
-read dotfiles
+read arch_dotfiles
 
 # Montar las particiones
 mount $root_partition /mnt
@@ -91,8 +91,8 @@ mount --mkdir $home_partition /mnt/home
 swapon $swap_partition
 
 # Obtener uuid de root y swap
-root_uuid=$(lsblk -dno UUID $root_partition)
-swap_uuid=$(lsblk -dno UUID $swap_partition)
+export arch_root_uuid=$(lsblk -dno UUID $root_partition)
+export arch_swap_uuid=$(lsblk -dno UUID $swap_partition)
 
 # Asegurar que las firmas no estén vencidas
 pacman -Sy --noconfirm archlinux-keyring
@@ -107,18 +107,7 @@ chmod +x install-2.sh
 mv install-2.sh pacman.txt /mnt
 
 # Pasar datos a install-2.sh
-echo "root_password=$root_password" >> envvars
-echo "username=$username" >> envvars
-echo "user_password=$user_password" >> envvars
-echo "hostname=$hostname" >> envvars
-echo "nvidia=$nvidia" >> envvars
-echo "root_uuid=$root_uuid" >> envvars
-echo "swap_uuid=$swap_uuid" >> envvars
-echo "rama=$rama" >> envvars
-echo "dotfiles=$dotfiles" >> envvars
-echo "workdir=$workdir" >> envvars
-echo "shell=$shell" >> envvars
-mv envvars /mnt
+env | grep "^arch" | sed "s|\(.*\)|export \1|" > /mnt/envvars
 
 # Fstab y chroot
 genfstab -U /mnt >> /mnt/etc/fstab
