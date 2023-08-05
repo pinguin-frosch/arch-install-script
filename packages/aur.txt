@@ -3,3 +3,4 @@ insomnia-bin
 insync
 onlyoffice-bin
 visual-studio-code-bin
+docker-credential-secretservice-bin
