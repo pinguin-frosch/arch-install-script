@@ -3,6 +3,10 @@
 # Recuperar variables desde install-1.sh
 source /arch/envvars
 
+# Aplicar configuración de pacman
+sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
+sed -i "s/^#\(Parallel.*\)/\1/" /etc/pacman.conf
+
 # Admnistración de paquetes
 pacman -S --noconfirm --needed - < /arch/packages/system.txt
 pacman -S --noconfirm --needed - < /arch/packages/desktop.txt
@@ -31,8 +35,6 @@ sed -i "s/^#\(es_CL.*UTF-8\)/\1/" /etc/locale.gen
 sed -i "s/^#\(en_US.*UTF-8\)/\1/" /etc/locale.gen
 sed -i "s/^#\(de_DE.*UTF-8\)/\1/" /etc/locale.gen
 locale-gen
-sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
-sed -i "s/^#\(Parallel.*\)/\1/" /etc/pacman.conf
 echo "LANG=es_CL.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=la-latin1" >> /etc/vconsole.conf
 
