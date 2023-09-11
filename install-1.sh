@@ -4,12 +4,10 @@
 set -e
 
 # Inicio
-loadkeys la-latin1
 timedatectl set-ntp true > /dev/null
 
 # Describir particiones
 lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS,PATH,PARTLABEL
-sleep 3
 
 # Crear particiones
 echo -n "¿Crear particiones? [s/n]: "
@@ -21,7 +19,6 @@ if [[ $response == "s" ]]; then
 
     # Mostrar las particiones nuevamente
     lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS,PATH,PARTLABEL
-    sleep 3
 fi
 
 # Registrar las particiones
