@@ -28,7 +28,7 @@ echo -e "$arch_root_password\n$arch_root_password" | passwd
 useradd -m $arch_username
 echo -e "$arch_user_password\n$arch_user_password" | passwd $arch_username
 usermod -aG wheel,docker,vboxusers $arch_username
-usermod -s /usr/bin/$arch_shell $arch_username
+usermod -s /usr/bin/fish $arch_username
 
 # Configuración básica
 echo "$arch_hostname" >> /etc/hostname

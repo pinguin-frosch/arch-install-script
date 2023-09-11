@@ -79,10 +79,6 @@ echo -n "Hostname: "
 read arch_hostname
 export arch_hostname
 
-echo -n "Shell: "
-read arch_shell
-export arch_shell
-
 echo -n "¿Instalar drivers nvidia? [s/n]: "
 read arch_nvidia
 export arch_nvidia
