@@ -27,6 +27,7 @@ ntfs-3g
 openssh
 p7zip
 r
+ripgrep
 rust
 stow
 system-config-printer
