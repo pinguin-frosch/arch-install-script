@@ -61,11 +61,9 @@ systemctl enable cups
 systemctl enable power-profiles-daemon
 systemctl enable docker
 
-# Copiar la distribución de teclado
-mv /arch/assets/pro /usr/share/X11/xkb/symbols/
-
 # Configurar distribución de teclado
-localectl set-x11-keymap pro,latam
+mv /arch/assets/pro /usr/share/X11/xkb/symbols/
+mv /arch/assets/00-keyboard.conf /etc/X11/xorg.conf.d/
 
 # Preparar paquetes de aur y yay para el usuario
 git clone https://aur.archlinux.org/yay.git
