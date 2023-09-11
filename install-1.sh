@@ -89,7 +89,7 @@ export arch_nvidia
 
 # Montar las particiones
 mount $root_partition /mnt
-mount --mkdir $efi_partition /mnt/boot
+mount -o uid=0,gid=0,fmask=0077,dmask=0077 --mkdir $efi_partition /mnt/boot
 mount --mkdir $home_partition /mnt/home
 swapon $swap_partition
 
