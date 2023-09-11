@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Terminar el programa en caso de errores
+set -e
+
 # Inicio
 loadkeys la-latin1
 timedatectl set-ntp true > /dev/null
@@ -94,16 +97,20 @@ swapon $swap_partition
 export arch_root_uuid=$(lsblk -dno UUID $root_partition)
 export arch_swap_uuid=$(lsblk -dno UUID $swap_partition)
 
+# Copiar todo lo necesario al sistema
+cp -r /root/arch-install-script /mnt/arch
+chmod +x /mnt/arch/install-2.sh
+env | grep "^arch" | sed "s|\(.*\)|export \1|" > /mnt/arch/envvars
+
+# Mostrar las variables antes de continuar
+cat /mnt/arch/envvars
+echo -n "¿Está todo bien? Enter para continuar..."
+
 # Asegurar que las firmas no estén vencidas
 pacman -Sy --noconfirm archlinux-keyring
 
 # Instalación básica
 pacstrap /mnt base linux linux-firmware
-
-# Copiar todo lo necesario al sistema
-cp -r /root/arch-install-script /mnt/arch
-chmod +x /mnt/arch/install-2.sh
-env | grep "^arch" | sed "s|\(.*\)|export \1|" > /mnt/arch/envvars
 
 # Fstab y chroot
 genfstab -U /mnt >> /mnt/etc/fstab
