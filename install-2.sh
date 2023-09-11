@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Terminar el programa en caso de errores
+set -e
+
 # Recuperar variables desde install-1.sh
 source /arch/envvars
 
@@ -7,16 +10,16 @@ source /arch/envvars
 sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
 sed -i "s/^#\(Parallel.*= \)\d/\18/" /etc/pacman.conf
 
-# Admnistración de paquetes
-pacman -S --noconfirm --needed - < /arch/packages/system.txt
-pacman -S --noconfirm --needed - < /arch/packages/desktop.txt
+# Crear lista de paquetes
+cat /arch/packages/system.txt /arch/packages/desktop.txt >> /arch/packages/all.txt
+if [[ $arch_nvidia == "s" ]]; then
+    cat /arch/packages/nvidia.txt >> /arch/packages/all.txt
+fi
+
+# Instalar paquetes
+pacman -S --noconfirm --needed - < /arch/packages/all.txt
 pacman -Rns --noconfirm discover
 ln -s /usr/bin/ksshaskpass /usr/lib/ssh/ssh-askpass
-
-# Nvidia
-if [[ $arch_nvidia == "s" ]]; then
-    pacman -S --noconfirm --needed nvidia nvidia-utils nvidia-settings nvidia-prime
-fi
 
 # Contraseña root
 echo -e "$arch_root_password\n$arch_root_password" | passwd
