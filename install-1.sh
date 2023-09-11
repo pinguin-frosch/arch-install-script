@@ -106,6 +106,10 @@ env | grep "^arch" | sed "s|\(.*\)|export \1|" > /mnt/arch/envvars
 cat /mnt/arch/envvars
 echo -n "¿Está todo bien? Enter para continuar..."
 
+# Acelerar descargas de pacman y activar color
+sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
+sed -i "s/^#\(Parallel.*= \)\d/\18/" /etc/pacman.conf
+
 # Asegurar que las firmas no estén vencidas
 pacman -Sy --noconfirm archlinux-keyring
 

@@ -3,9 +3,9 @@
 # Recuperar variables desde install-1.sh
 source /arch/envvars
 
-# Aplicar configuración de pacman
+# Acelerar descargas de pacman y activar color
 sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
-sed -i "s/^#\(Parallel.*\)/\1/" /etc/pacman.conf
+sed -i "s/^#\(Parallel.*= \)\d/\18/" /etc/pacman.conf
 
 # Admnistración de paquetes
 pacman -S --noconfirm --needed - < /arch/packages/system.txt
