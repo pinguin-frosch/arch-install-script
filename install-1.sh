@@ -105,6 +105,7 @@ env | grep "^arch" | sed "s|\(.*\)|export \1|" > /mnt/arch/envvars
 # Mostrar las variables antes de continuar
 cat /mnt/arch/envvars
 echo -n "¿Está todo bien? Enter para continuar..."
+read response
 
 # Acelerar descargas de pacman y activar color
 sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
