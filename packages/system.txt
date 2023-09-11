@@ -4,7 +4,6 @@ bluez
 bluez-utils
 boost
 clang
-colord
 cups
 docker
 docker-buildx
@@ -15,6 +14,8 @@ go
 jdk-openjdk
 man-db
 man-pages
+man-pages-de
+man-pages-es
 neovim
 networkmanager
 nodejs
@@ -25,7 +26,6 @@ npm
 ntfs-3g
 openssh
 p7zip
-power-profiles-daemon
 r
 rust
 stow
@@ -39,5 +39,6 @@ unzip
 usbutils
 wezterm
 xclip
-zsh
-zsh-completions
+xdg-desktop-portal-gtk
+xsettingsd
+zoxide

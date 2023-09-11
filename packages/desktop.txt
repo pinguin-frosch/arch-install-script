@@ -1,5 +1,4 @@
 ark
-colord-kde
 dolphin
 dolphin-plugins
 ffmpegthumbs
@@ -10,14 +9,15 @@ kdegraphics-thumbnailers
 kdialog
 keepassxc
 kimageformats
+kio-admin
 ksshaskpass
-ktorrent
 kwalletmanager
 obs-studio
 okular
 partitionmanager
 plasma
 print-manager
+qbittorrent
 spectacle
 virtualbox
 virtualbox-guest-iso

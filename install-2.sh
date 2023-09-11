@@ -58,7 +58,6 @@ systemctl enable NetworkManager
 systemctl enable sddm
 systemctl enable bluetooth
 systemctl enable cups
-systemctl enable power-profiles-daemon
 systemctl enable docker
 
 # Configurar distribución de teclado
