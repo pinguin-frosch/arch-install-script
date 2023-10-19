@@ -1,5 +1,5 @@
 google-chrome
-insomnia-bin
+insomnium-bin
 insync
 onlyoffice-bin
 visual-studio-code-bin
