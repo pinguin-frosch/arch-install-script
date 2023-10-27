@@ -33,6 +33,7 @@ stow
 system-config-printer
 tmux
 ttf-fantasque-nerd
+ttf-iosevka-nerd
 ufw
 unarchiver
 unrar
