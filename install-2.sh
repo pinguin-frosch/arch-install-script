@@ -79,8 +79,9 @@ git clone https://aur.archlinux.org/yay.git
 chown -R $arch_username:$arch_username yay /arch/packages/aur.txt
 mv yay /arch/packages/aur.txt /home/$arch_username
 
-# Instalar yay en el sistema
+# Instalar yay en el sistema y activar el agente ssh
 sudo -u $arch_username bash << EOF
+    systemctl --user enable ssh-agent.service
     cd /home/$arch_username/yay
     echo $arch_user_password | sudo -S pwd
     makepkg -si --noconfirm
