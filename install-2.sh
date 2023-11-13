@@ -63,6 +63,16 @@ systemctl enable docker
 # Configurar distribución de teclado
 mv /arch/assets/pro /usr/share/X11/xkb/symbols/
 mv /arch/assets/00-keyboard.conf /etc/X11/xorg.conf.d/
+sed -i "/<\/layoutList>/i \\
+    <layout>\\
+      <configItem>\\
+        <name>pro</name>\\
+        <shortDescription>pro</shortDescription>\\
+        <description>Programming</description>\\
+        <languageList/>\\
+      </configItem>\\
+      <variantList/>\\
+    </layout>" /usr/share/X11/xkb/rules/evdev.xml
 
 # Preparar paquetes de aur y yay para el usuario
 git clone https://aur.archlinux.org/yay.git
