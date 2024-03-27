@@ -4,7 +4,6 @@ dolphin-plugins
 ffmpegthumbs
 filelight
 gwenview
-kcm-wacomtablet
 kdegraphics-thumbnailers
 kdialog
 keepassxc
