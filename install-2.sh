@@ -83,7 +83,7 @@ mv yay /arch/packages/aur.txt /home/$arch_username
 sudo -u $arch_username bash << EOF
     systemctl --user enable ssh-agent.service
     cd /home/$arch_username/yay
-    echo $arch_user_password | sudo -S pwd
+    echo "$arch_user_password" | sudo -S pwd
     makepkg -si --noconfirm
 EOF
 

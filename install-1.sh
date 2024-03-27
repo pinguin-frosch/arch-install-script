@@ -93,7 +93,7 @@ export arch_swap_uuid=$(lsblk -dno UUID $swap_partition)
 # Copiar todo lo necesario al sistema
 cp -r /root/arch-install-script /mnt/arch
 chmod +x /mnt/arch/install-2.sh
-env | grep "^arch" | sed "s|\(.*\)|export \1|" > /mnt/arch/envvars
+env | grep "^arch" | sed 's|\([^=]*=\)\(.*\)|export \1"\2"|' > /mnt/arch/envvars
 
 # Mostrar las variables antes de continuar
 cat /mnt/arch/envvars
