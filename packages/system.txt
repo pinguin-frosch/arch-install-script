@@ -26,6 +26,7 @@ npm
 ntfs-3g
 openssh
 p7zip
+pyenv
 r
 ripgrep
 rust
@@ -49,4 +50,3 @@ wezterm
 xclip
 xdg-desktop-portal-gtk
 xsettingsd
-zoxide
