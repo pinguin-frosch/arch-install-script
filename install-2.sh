@@ -40,6 +40,7 @@ sed -i "s/^#\(de_DE.*UTF-8\)/\1/" /etc/locale.gen
 locale-gen
 echo "LANG=es_CL.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=la-latin1" >> /etc/vconsole.conf
+sed -i "s/^#DefaultTimeoutStopSec=.*/DefaultTimeoutStopSec=3s/" /etc/systemd/system.conf
 
 # Configuración sudo
 sed -i "s/^# \(%wheel ALL=(ALL:ALL) ALL\)/\1/" /etc/sudoers
