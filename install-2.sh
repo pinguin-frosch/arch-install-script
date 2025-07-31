@@ -64,13 +64,15 @@ systemctl enable docker
 # Configurar distribución de teclado
 mv /arch/assets/pro /usr/share/X11/xkb/symbols/
 mv /arch/assets/00-keyboard.conf /etc/X11/xorg.conf.d/
-sed -i "/<\/layoutList>/i \\
+sed -i "/<\/layoutList>/i\\
     <layout>\\
       <configItem>\\
         <name>pro</name>\\
         <shortDescription>pro</shortDescription>\\
         <description>Programming</description>\\
-        <languageList/>\\
+        <languageList>\\
+          <iso639Id>deu</iso639Id>\\
+        </languageList>\\
       </configItem>\\
       <variantList/>\\
     </layout>" /usr/share/X11/xkb/rules/evdev.xml

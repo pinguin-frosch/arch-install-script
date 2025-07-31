@@ -1,7 +1,7 @@
 // Made by Gabriel Barrientos
 
 xkb_symbols "Programming" {
-    name[Group1]="Spanish (Programming)";
+    name[Group1]="Programming";
 
     key <TLDE>  { [ bar, degree, notsign ] };
     key <AE01>  { [ 1, exclam, acute ] };
