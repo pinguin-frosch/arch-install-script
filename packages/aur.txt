@@ -1,6 +1,4 @@
 bruno-bin
 docker-credential-secretservice-bin
 google-chrome
-insync
-onlyoffice-bin
 visual-studio-code-bin
