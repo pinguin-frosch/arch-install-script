@@ -10,6 +10,7 @@ docker
 docker-buildx
 docker-compose
 fish
+ghostty
 git
 go
 jdk-openjdk
@@ -46,7 +47,6 @@ unarchiver
 unrar
 unzip
 usbutils
-wezterm
 xclip
 xdg-desktop-portal-gtk
 xsettingsd
