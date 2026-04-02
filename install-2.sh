@@ -58,13 +58,15 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # TODO: Register hook to enable hibernation by modifying the artix bootloader entry
 
 # Enable services
-dinitctl enable ntpd
-dinitctl enable NetworkManager
-dinitctl enable bluetoothd
-dinitctl enable cupsd
-dinitctl enable sddm
+mkdir -p /etc/dinit.d/boot.d/
+ln -sf ../ntpd /etc/dinit.d/boot.d/
+ln -sf ../NetworkManager /etc/dinit.d/boot.d/
+ln -sf ../bluetoothd /etc/dinit.d/boot.d/
+ln -sf ../cupsd /etc/dinit.d/boot.d/
+ln -sf ../sddm /etc/dinit.d/boot.d/
+ln -sf /usr/lib/dinit.d/dinit-user-spawn /etc/dinit.d/boot.d/dinit-user-spawn
 if [[ $artix_install_development == "y" ]]; then
-    dinitctl enable dockerd
+    ln -sf ../dockerd /etc/dinit.d/boot.d/
 fi
 
 # Configure my custom keyboard layout
