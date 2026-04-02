@@ -1,119 +1,113 @@
 #!/bin/bash
 
-# Terminar el programa en caso de errores
+# Exit in case of any error
 set -e
 
-# Inicio
-timedatectl set-ntp true > /dev/null
+# Describe partitions
+lsblk -o NAME,LABEL,PATH,SIZE,FSTYPE,MOUNTPOINTS
 
-# Describir particiones
-lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS,PATH,PARTLABEL
-
-# Crear particiones
-echo -n "¿Crear particiones? [s/n]: "
+# Create partitions
+echo -n "Partition disk? [y/N]: "
 read response
-if [[ $response == "s" ]]; then
-    echo -n "Disco: "
+if [[ $response == "y" ]]; then
+    echo -n "Disk: "
     read disk
     cfdisk $disk
 
-    # Mostrar las particiones nuevamente
-    lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS,PATH,PARTLABEL
+    # Show the partitions again
+    lsblk -o NAME,LABEL,PATH,SIZE,FSTYPE,MOUNTPOINTS
 fi
 
-# Registrar las particiones
-echo -n "Partición efi:  "
-read efi_partition
+# Register partitions
+echo -n "ESP Partition:  "
+read esp_partition
 
-echo -n "Partición root: "
+echo -n "ROOT Partition: "
 read root_partition
 
-echo -n "Partición home: "
+echo -n "HOME Partition: "
 read home_partition
 
-echo -n "Partición swap: "
+echo -n "SWAP Partition: "
 read swap_partition
 
-# Formatear las particiones condicionalmente
-echo -n "¿Formatear efi? [s/n]:  "
-read efi
-if [[ $efi == "s" ]]; then
-    mkfs.fat -F 32 $efi_partition
+# Format partitions conditionally
+echo -n "Format ESP? [y/N]:  "
+read format_esp
+if [[ $format_esp == "y" ]]; then
+    mkfs.fat -F 32 $esp_partition
+    fatlabel $esp_partition ESP
 fi
 
-echo -n "¿Formatear root? [s/n]: "
-read root
-if [[ $root == "s" ]]; then
-    mkfs.ext4 $root_partition
+echo -n "Format ROOT? [y/N]: "
+read format_root
+if [[ $format_root == "y" ]]; then
+    mkfs.ext4 -L ROOT $root_partition
 fi
 
-echo -n "¿Formatear home? [s/n]: "
-read home
-if [[ $home == "s" ]]; then
-    mkfs.ext4 $home_partition
+echo -n "Format HOME? [y/N]: "
+read format_home
+if [[ $format_home == "y" ]]; then
+    mkfs.ext4 -L HOME $home_partition
 fi
 
-echo -n "¿Formatear swap? [s/n]: "
-read swap
-if [[ $swap == "s" ]]; then
-    mkswap $swap_partition
+echo -n "Format SWAP [y/N]: "
+read format_swap
+if [[ $format_swap == "y" ]]; then
+    mkswap -L SWAP $swap_partition
 fi
 
 # Inputs
-echo -n "Contraseña root: "
-read arch_root_password
-export arch_root_password
+echo -n "Root password: "
+read artix_root_password
+export artix_root_password
 
-echo -n "Nombre de usuario: "
-read arch_username
-export arch_username
+echo -n "Username: "
+read artix_username
+export artix_username
 
-echo -n "Contraseña de usuario: "
-read arch_user_password
-export arch_user_password
+echo -n "User password: "
+read artix_user_password
+export artix_user_password
 
 echo -n "Hostname: "
-read arch_hostname
-export arch_hostname
+read artix_hostname
+export artix_hostname
 
-echo -n "¿Instalar drivers nvidia? [s/n]: "
-read arch_nvidia
-export arch_nvidia
+echo -n "Install nvidia drivers? [y/N]: "
+read artix_nvidia
+export artix_nvidia
 
-# Montar las particiones
+# Mount partitions
 mount $root_partition /mnt
-mount -o uid=0,gid=0,fmask=0077,dmask=0077 --mkdir $efi_partition /mnt/boot
+mount --mkdir $esp_partition /mnt/boot/efi
 mount --mkdir $home_partition /mnt/home
 swapon $swap_partition
 
-# Obtener uuid de root y swap
-export arch_root_uuid=$(lsblk -dno UUID $root_partition)
-export arch_swap_uuid=$(lsblk -dno UUID $swap_partition)
+# Copy everything to the chroot
+mkdir -p /mnt/artix
+env | grep "^artix" | sed 's|\([^=]*=\)\(.*\)|export \1"\2"|' > /mnt/artix/envvars
 
-# Copiar todo lo necesario al sistema
-cp -r /root/arch-install-script /mnt/arch
-chmod +x /mnt/arch/install-2.sh
-env | grep "^arch" | sed 's|\([^=]*=\)\(.*\)|export \1"\2"|' > /mnt/arch/envvars
-
-# Mostrar las variables antes de continuar
-cat /mnt/arch/envvars
-echo -n "¿Está todo bien? Enter para continuar..."
+# Show variables to confirm
+cat /mnt/artix/envvars
+echo -n "Is everything all right? Press anything to continue..."
 read response
 
-# Acelerar descargas de pacman y activar color
+# Speed up pacman download
 sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
 sed -i "s/^#\(Parallel.*= \).*/\18/" /etc/pacman.conf
 
-# Asegurar que las firmas no estén vencidas
-pacman -Sy --noconfirm archlinux-keyring
+# Enable ntpd to synchronize time
+dinitctl start ntpd
 
-# Instalación básica
-pacstrap /mnt base linux linux-firmware
+# Make sure all packages are up to date
+pacman -Sy --noconfirm artix-keyring
 
-# Fstab y chroot
-genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt /arch/install-2.sh
+# Base install
+basestrap /mnt base base-devel dinit elogind-dinit
+basestrap /mnt linux linux-firmware linux-headers
 
-# Reiniciar
-rm -rf /mnt/arch
-reboot
+# Generate fstab
+fstabgen -L /mnt >> /mnt/etc/fstab
+
+echo "Part 1 run successfully"
