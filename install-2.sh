@@ -1,69 +1,75 @@
 #!/bin/bash
 
-# Terminar el programa en caso de errores
+# Exit in case of any error
 set -e
 
-# Recuperar variables desde install-1.sh
-source /arch/envvars
+# Source variables from install-1.sh
+source /artix/envvars
 
-# Acelerar descargas de pacman y activar color
+# Speed up pacman downloads and enable color mode
 sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
 sed -i "s/^#\(Parallel.*= \).*/\18/" /etc/pacman.conf
 
-# Crear lista de paquetes
-cat /arch/packages/system.txt /arch/packages/desktop.txt >> /arch/packages/all.txt
-if [[ $arch_nvidia == "s" ]]; then
-    cat /arch/packages/nvidia.txt >> /arch/packages/all.txt
+# Create package list to install
+cat /artix/packages/system.txt /artix/packages/plasma.txt >> /artix/packages/all.txt
+if [[ $artix_install_development == "y" ]]; then
+    cat /artix/packages/development.txt >> /artix/packages/all.txt
+fi
+if [[ $artix_install_desktop_apps == "y" ]]; then
+    cat /artix/packages/desktop-apps.txt >> /artix/packages/all.txt
+fi
+if [[ $artix_install_nvidia == "y" ]]; then
+    cat /artix/packages/nvidia.txt >> /artix/packages/all.txt
 fi
 
-# Instalar paquetes
-pacman -S --noconfirm --needed - < /arch/packages/all.txt
-pacman -Rns --noconfirm discover
-ln -s /usr/bin/ksshaskpass /usr/lib/ssh/ssh-askpass
+# Install packages
+pacman -S --noconfirm --needed - < /artix/packages/all.txt
 
-# Contraseña root
-echo -e "$arch_root_password\n$arch_root_password" | passwd
+# Setup root password
+echo -e "$artix_root_password\n$artix_root_password" | passwd
 
-# Creación y configuración usuario
-useradd -m $arch_username
-echo -e "$arch_user_password\n$arch_user_password" | passwd $arch_username
-usermod -aG wheel,docker,vboxusers $arch_username
-usermod -s /usr/bin/fish $arch_username
+# Create and configure user
+useradd -m $artix_username
+echo -e "$artix_user_password\n$artix_user_password" | passwd $artix_username
+usermod -s /usr/bin/fish $artix_username
+usermod -aG wheel $artix_username
+if [[ $artix_install_development == "y" ]]; then
+    usermod -aG docker,vboxusers $artix_username
+fi
 
-# Configuración básica
-echo "$arch_hostname" >> /etc/hostname
+# Basic system setup
+echo "$artix_hostname" >> /etc/hostname
 ln -sf /usr/share/zoneinfo/America/Santiago /etc/localtime
 hwclock --systohc
 sed -i "s/^#\(es_CL.*UTF-8\)/\1/" /etc/locale.gen
 sed -i "s/^#\(en_US.*UTF-8\)/\1/" /etc/locale.gen
 sed -i "s/^#\(de_DE.*UTF-8\)/\1/" /etc/locale.gen
 locale-gen
-echo "LANG=es_CL.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=la-latin1" >> /etc/vconsole.conf
-sed -i "s/^#DefaultTimeoutStopSec=.*/DefaultTimeoutStopSec=3s/" /etc/systemd/system.conf
 
-# Configuración sudo
+# Enable wheel group for sudo access
 sed -i "s/^# \(%wheel ALL=(ALL:ALL) ALL\)/\1/" /etc/sudoers
 
-# Instalación y configuración systemd-boot
-bootctl install
-echo -e "default @saved\ntimeout 2\nconsole-mode max" > /boot/loader/loader.conf
-envsubst < /arch/assets/arch.conf.tpl > /boot/loader/entries/arch.conf
+# Install and setup grub bootloader
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
+sed -i "s/^#\(GRUB_DISABLE_OS_PROBER=\).*/\1false/" /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
 
-# Registrar hook para hibernación
-sed -i "s/^\(HOOKS=.*filesystems\)/\1 resume/" /etc/mkinitcpio.conf
-mkinitcpio -p linux
+# TODO: Register hook to enable hibernation by modifying the artix bootloader entry
 
-# Servicios
-systemctl enable NetworkManager
-systemctl enable sddm
-systemctl enable bluetooth
-systemctl enable cups
-systemctl enable docker
+# Enable services
+dinitctl enable ntpd
+dinitctl enable NetworkManager
+dinitctl enable bluetoothd
+dinitctl enable cupsd
+dinitctl enable sddm
+if [[ $artix_install_development == "y" ]]; then
+    dinitctl enable dockerd
+fi
 
-# Configurar distribución de teclado
-mv /arch/assets/pro /usr/share/X11/xkb/symbols/
-mv /arch/assets/00-keyboard.conf /etc/X11/xorg.conf.d/
+# Configure my custom keyboard layout
+mv /artix/assets/pro /usr/share/X11/xkb/symbols/
+mv /artix/assets/00-keyboard.conf /etc/X11/xorg.conf.d/
 sed -i "/<\/layoutList>/i\\
     <layout>\\
       <configItem>\\
@@ -71,27 +77,30 @@ sed -i "/<\/layoutList>/i\\
         <shortDescription>pro</shortDescription>\\
         <description>Programming</description>\\
         <languageList>\\
+          <iso639Id>eng</iso639Id>\\
           <iso639Id>deu</iso639Id>\\
+          <iso639Id>spa</iso639Id>\\
         </languageList>\\
       </configItem>\\
       <variantList/>\\
     </layout>" /usr/share/X11/xkb/rules/evdev.xml
 
-# Preparar paquetes de aur y yay para el usuario
+# Clone yay
 git clone https://aur.archlinux.org/yay.git
-chown -R $arch_username:$arch_username yay /arch/packages/aur.txt
-mv yay /arch/packages/aur.txt /home/$arch_username
+mkdir -p /home/$artix_username/Programming/aur/
 
-# Instalar yay en el sistema y activar el agente ssh
-sudo -u $arch_username bash << EOF
-    systemctl --user enable ssh-agent.service
-    cd /home/$arch_username/yay
-    echo "$arch_user_password" | sudo -S pwd
-    makepkg -si --noconfirm
+# Move yay and aur.txt to the user folder
+mv yay /artix/packages/aur.txt /home/$artix_username/Programming/aur/
+
+# Change owner of the newly creted folder to avoid problems
+chown -R $artix_username:$artix_username /home/$artix_username/Programming
+
+# Install yay
+sudo -u $artix_username bash << EOF
+    cd /home/$artix_username/Programming/aur/yay/
+    makepkg -s --noconfirm
+    echo "$artix_user_password" | sudo -S pwd
+    makepkg -i --noconfirm
 EOF
 
-# Borrar repositorio de yay
-rm -r /home/$arch_username/yay
-
-# Salir
 exit

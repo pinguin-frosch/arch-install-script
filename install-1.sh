@@ -78,9 +78,17 @@ echo -n "Hostname: "
 read artix_hostname
 export artix_hostname
 
-echo -n "Install nvidia drivers? [y/N]: "
-read artix_nvidia
-export artix_nvidia
+echo -n "Install development packages? [y/N]: "
+read artix_install_development
+export artix_install_development
+
+echo -n "Install desktop apps packages? [y/N]: "
+read artix_install_desktop_apps
+export artix_install_desktop_apps
+
+echo -n "Install nvidia packages? [y/N]: "
+read artix_install_nvidia
+export artix_install_nvidia
 
 # Mount partitions
 mount $root_partition /mnt
@@ -90,6 +98,8 @@ swapon $swap_partition
 
 # Copy everything to the chroot
 mkdir -p /mnt/artix
+cp -r /root/arch-install-script/* /mnt/artix # TODO: rename to artix after renaming repo
+chmod +x /mnt/artix/install-2.sh
 env | grep "^artix" | sed 's|\([^=]*=\)\(.*\)|export \1"\2"|' > /mnt/artix/envvars
 
 # Show variables to confirm
@@ -97,7 +107,7 @@ cat /mnt/artix/envvars
 echo -n "Is everything all right? Press anything to continue..."
 read response
 
-# Speed up pacman download
+# Speed up pacman downloads and enable color mode
 sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
 sed -i "s/^#\(Parallel.*= \).*/\18/" /etc/pacman.conf
 
@@ -113,4 +123,8 @@ basestrap /mnt base base-devel dinit elogind-dinit linux linux-firmware linux-he
 # Generate fstab
 fstabgen -L /mnt >> /mnt/etc/fstab
 
-echo "Part 1 run successfully"
+# Run install-2.sh inside the chroot environment
+artix-chroot /mnt /artix/install-2.sh
+
+# Restart system
+rm -rf /mnt/artix
