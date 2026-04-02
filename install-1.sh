@@ -14,6 +14,10 @@ if [[ $response == "y" ]]; then
     read disk
     cfdisk $disk
 
+    echo "Syncing partition table..."
+    partx -u $disk 2>/dev/null || true
+    udevadm settle
+
     # Show the partitions again
     lsblk -o NAME,LABEL,PATH,SIZE,FSTYPE,MOUNTPOINTS
 fi
@@ -104,8 +108,7 @@ dinitctl start ntpd
 pacman -Sy --noconfirm artix-keyring
 
 # Base install
-basestrap /mnt base base-devel dinit elogind-dinit
-basestrap /mnt linux linux-firmware linux-headers
+basestrap /mnt base base-devel dinit elogind-dinit linux linux-firmware linux-headers
 
 # Generate fstab
 fstabgen -L /mnt >> /mnt/etc/fstab
