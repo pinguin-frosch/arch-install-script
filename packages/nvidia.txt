@@ -1,4 +1,3 @@
-nvidia
-nvidia-prime
-nvidia-settings
-nvidia-utils
+nvidia-580xx-dkms
+nvidia-580xx-settings
+nvidia-580xx-utils

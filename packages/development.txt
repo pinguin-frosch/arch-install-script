@@ -1,0 +1,15 @@
+android-tools
+boost
+clang
+docker
+docker-buildx
+docker-compose
+go
+jdk-openjdk
+nodejs
+npm
+pyenv
+rust
+virtualbox
+virtualbox-guest-iso
+virtualbox-host-dkms
