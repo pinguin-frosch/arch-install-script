@@ -96,6 +96,9 @@ mount --mkdir $esp_partition /mnt/boot/efi
 mount --mkdir $home_partition /mnt/home
 swapon $swap_partition
 
+# Export swap partition uuid
+export artix_swap_uuid=$(lsblk -dno UUID $swap_partition)
+
 # Copy everything to the chroot
 mkdir -p /mnt/artix
 cp -r /root/arch-install-script/* /mnt/artix # TODO: rename to artix after renaming repo

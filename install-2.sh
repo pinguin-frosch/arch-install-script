@@ -53,9 +53,14 @@ sed -i "s/^# \(%wheel ALL=(ALL:ALL) ALL\)/\1/" /etc/sudoers
 # Install and setup grub bootloader
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
 sed -i "s/^#\(GRUB_DISABLE_OS_PROBER=\).*/\1false/" /etc/default/grub
-grub-mkconfig -o /boot/grub/grub.cfg
 
-# TODO: Register hook to enable hibernation by modifying the artix bootloader entry
+# Enable hibernation
+sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\1 resume=UUID=$artix_swap_uuid/" /etc/default/grub
+sed -i "s/^\(HOOKS=.*filesystems\)/\1 resume/" /etc/mkinitcpio.conf
+mkinitcpio -p linux
+
+# Save grub config to the system
+grub-mkconfig -o /boot/grub/grub.cfg
 
 # Enable services
 mkdir -p /etc/dinit.d/boot.d/
