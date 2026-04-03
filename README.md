@@ -12,3 +12,8 @@ First of all, the artix-linux-dinit ISO is necessary to run this script
 5. The packages to install can be changed from `./packages/` before starting the script
 6. Run `bash install-1.sh`
 7. Follow the instructions and then wait until it's installed
+
+### Note
+This was originally a script to install arch-linux. The tag v1.0-arch-final
+still contains the last working version for that, but from now on I only
+recommend using v2.0-artix-first or later. Ignore all the commits in between.
