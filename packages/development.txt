@@ -4,6 +4,7 @@ clang
 docker
 docker-buildx
 docker-compose
+docker-dinit
 go
 jdk-openjdk
 nodejs

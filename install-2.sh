@@ -69,6 +69,8 @@ ln -sf ../NetworkManager /etc/dinit.d/boot.d/
 ln -sf ../bluetoothd /etc/dinit.d/boot.d/
 ln -sf ../cupsd /etc/dinit.d/boot.d/
 ln -sf ../sddm /etc/dinit.d/boot.d/
+ln -sf ../sshd /etc/dinit.d/boot.d/
+ln -sf ../ufw /etc/dinit.d/boot.d/
 ln -sf /usr/lib/dinit.d/dinit-user-spawn /etc/dinit.d/boot.d/dinit-user-spawn
 if [[ $artix_install_development == "y" ]]; then
     ln -sf ../dockerd /etc/dinit.d/boot.d/

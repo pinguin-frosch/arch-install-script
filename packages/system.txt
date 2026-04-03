@@ -21,6 +21,7 @@ ntfs-3g
 ntp
 ntp-dinit
 openssh
+openssh-dinit
 os-prober
 p7zip
 pipewire
@@ -42,6 +43,7 @@ ttf-iosevka-nerd
 ttf-jetbrains-mono-nerd
 ttf-monoid-nerd
 ufw
+ufw-dinit
 unarchiver
 unrar
 unzip
