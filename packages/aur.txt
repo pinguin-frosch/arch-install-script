@@ -1,4 +1,4 @@
 bruno-bin
 docker-credential-secretservice-bin
+epson-inkjet-printer-escpr
 google-chrome
-visual-studio-code-bin

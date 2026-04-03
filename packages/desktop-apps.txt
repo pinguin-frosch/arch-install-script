@@ -14,5 +14,6 @@ okular
 partitionmanager
 qbittorrent
 vlc
+vlc-plugins-all
 xdg-desktop-portal-gtk
 xsettingsd

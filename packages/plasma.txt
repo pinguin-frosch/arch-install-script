@@ -16,6 +16,7 @@ kinfocenter
 kio-admin
 kmenuedit
 knighttime
+konsole
 kpipewire
 krdp
 kscreen
