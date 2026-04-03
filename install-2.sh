@@ -49,6 +49,7 @@ sed -i "s/^#\(en_US.*UTF-8\)/\1/" /etc/locale.gen
 sed -i "s/^#\(de_DE.*UTF-8\)/\1/" /etc/locale.gen
 locale-gen
 echo "KEYMAP=la-latin1" >> /etc/vconsole.conf
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 
 # Enable wheel group for sudo access
 sed -i "s/^# \(%wheel ALL=(ALL:ALL) ALL\)/\1/" /etc/sudoers
