@@ -131,3 +131,4 @@ artix-chroot /mnt /artix/install-2.sh
 
 # Restart system
 rm -rf /mnt/artix
+reboot

@@ -8,8 +8,7 @@ source /artix/envvars
 
 # Speed up pacman downloads and enable color mode
 sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
-# TODO: this value is still 5, check the line again
-sed -i "s/^#\(Parallel.*= \).*/\18/" /etc/pacman.conf
+sed -i "s/^\(Parallel.*= \).*/\18/" /etc/pacman.conf
 
 # Create package list to install
 cat /artix/packages/system.txt /artix/packages/plasma.txt >> /artix/packages/all.txt
