@@ -8,6 +8,7 @@ source /artix/envvars
 
 # Speed up pacman downloads and enable color mode
 sed -i "s/^#\(Color\)/\1/" /etc/pacman.conf
+# TODO: this value is still 5, check the line again
 sed -i "s/^#\(Parallel.*= \).*/\18/" /etc/pacman.conf
 
 # Create package list to install
@@ -102,12 +103,16 @@ mv yay /artix/packages/aur.txt /home/$artix_username/Programming/aur/
 # Change owner of the newly creted folder to avoid problems
 chown -R $artix_username:$artix_username /home/$artix_username/Programming
 
+# Temporarily give root access to the user without a password
+echo "$artix_username ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/99-temp-aur-installer
+
 # Install yay
 sudo -u $artix_username bash << EOF
     cd /home/$artix_username/Programming/aur/yay/
-    makepkg -s --noconfirm
-    echo "$artix_user_password" | sudo -S pwd
-    makepkg -i --noconfirm
+    makepkg -si --noconfirm
 EOF
+
+# Remove temporarily given root acccess to the user
+rm /etc/sudoers.d/99-temp-aur-installer
 
 exit
