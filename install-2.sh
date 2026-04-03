@@ -115,4 +115,9 @@ EOF
 # Remove temporarily given root acccess to the user
 rm /etc/sudoers.d/99-temp-aur-installer
 
+# Copy install-3.sh to the user $HOME folder
+mv /artix/install-3.sh /home/$artix_username
+chmod +x /home/$artix_username/install-3.sh
+chown $artix_username:$artix_username /home/$artix_username/install-3.sh
+
 exit
