@@ -1,17 +1,14 @@
-# arch-install-script
-Script sencillo en bash para una rápida instalación de Arch Linux. Tiene 0
-personalización por lo que no recomiendo usarlo a otras personas. Pero puede
-servir como base para lo que quieran hacer. Solo instala los programas base y
-un entorno de escritorio, específicamente plasma.
+# artix-install-script
+Simple script to install Artix Linux. It's only designed to run in my system,
+so don't try to use it somewhere else, unless you want to use as inspiration to
+make your own.
 
-## Uso
-Siempre se me olvida como usar este programa. Ya era hora de que agregue un
-readme para las veces en que lo tengo que usar.
-
-1. Iniciar ArchLinux desde la iso como lo haríamos normalmente.
-2. Instalar git en el live iso.
-3. Seleccionar la rama que queremos usar desde la carpeta del repositorio.
-4. Si queremos modificar los programas que se van a instalar podemos editarlos.
-5. Ejecutar el script `install-1.sh` usando bash.
-6. Realizar la configuración inicial guiada en el sistema.
-7. Relajarse y esperar hasta que todo termine.
+## Usage
+First of all, the artix-linux-dinit ISO is necessary to run this script
+1. Start artix-linux from the iso
+2. Install git in the live iso
+3. Clone this repo and cd into it
+4. Change branch if necessary, otherwise skip this step
+5. The packages to install can be changed from `./packages/` before starting the script
+6. Run `bash install-1.sh`
+7. Follow the instructions and then wait until it's installed

@@ -101,7 +101,7 @@ export artix_swap_uuid=$(lsblk -dno UUID $swap_partition)
 
 # Copy everything to the chroot
 mkdir -p /mnt/artix
-cp -r /root/arch-install-script/* /mnt/artix # TODO: rename to artix after renaming repo
+cp -r /root/artix-install-script/* /mnt/artix
 chmod +x /mnt/artix/install-2.sh
 env | grep "^artix" | sed 's|\([^=]*=\)\(.*\)|export \1"\2"|' > /mnt/artix/envvars
 
