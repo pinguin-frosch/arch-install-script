@@ -94,6 +94,15 @@ sed -i "/<\/layoutList>/i\\
       <variantList/>\\
     </layout>" /usr/share/X11/xkb/rules/evdev.xml
 
+
+# Copy prime-run script if necessary
+if [[ $artix_install_nvidia == "y" ]]; then
+    mkdir -p /home/$artix_username/.local/bin
+    mv /artix/assets/prime-run /home/$artix_username/.local/bin/
+    chown -R $artix_username:$artix_username /home/$artix_username/.local/
+    chmod +x /home/$artix_username/.local/bin/prime-run
+fi
+
 # Clone yay
 git clone https://aur.archlinux.org/yay.git
 mkdir -p /home/$artix_username/Programming/aur/
