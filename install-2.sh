@@ -22,8 +22,11 @@ if [[ $artix_install_nvidia == "y" ]]; then
     cat /artix/packages/nvidia.txt >> /artix/packages/all.txt
 fi
 
-# Install packages
-pacman -S --noconfirm --needed - < /artix/packages/all.txt
+# Install packages and restart if there's a network fail or bad internet
+until pacman -S --noconfirm --needed - < /artix/packages/all.txt; do
+    echo "--> Network dropped or pacman failed. Retrying in 3 seconds..."
+    sleep 3
+done
 
 # Setup root password
 echo -e "$artix_root_password\n$artix_root_password" | passwd
