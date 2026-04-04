@@ -11,6 +11,14 @@ dinitctl enable wireplumber
 # Install aur packages
 yay -S --noconfirm --needed - < $HOME/Programming/aur/aur.txt
 
+# Add virtual desktops
+for i in $(seq 2 6); do
+    dbus-send --session --print-reply --dest=org.kde.KWin \
+        /VirtualDesktopManager \
+        org.kde.KWin.VirtualDesktopManager.createDesktop \
+        uint32:"$i" string:"Desktop $i"
+done
+
 # Custom function to write configs much easier
 kw() {
     local file="" key="" val="" type=""
@@ -53,6 +61,7 @@ kw -f kxkbrc -g Layout -k Use -v true -t bool
 # kwinrc
 kw -f kwinrc -g Effect-overview -k BorderActivate -v 9
 kw -f kwinrc -g Plugins -k shakecursorEnabled -v false -t bool
+kw -f kwinrc -g Desktops -k Rows -v 2
 
 # kdeglobals
 kw -f kdeglobals -g KDE -k AnimationDurationFactor -v 0
