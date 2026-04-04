@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Save the selected session target
+TARGET=$(
+    tmux list-sessions -F '#{session_name}' |\
+    fzf --reverse --prompt='Jump to: ' --header='Sessions'
+)
+
+# Switch to the session if one was selected
+if [ -n "$TARGET" ]; then
+    tmux switch-client -t "$TARGET"
+fi

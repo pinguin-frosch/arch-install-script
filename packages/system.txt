@@ -6,6 +6,7 @@ cups-dinit
 dinit-user-spawn
 efibootmgr
 fish
+fzf
 ghostty
 git
 grub

@@ -98,14 +98,21 @@ sed -i "/<\/layoutList>/i\\
       <variantList/>\\
     </layout>" /usr/share/X11/xkb/rules/evdev.xml
 
+# Create the user directory for scripts
+mkdir -p /home/$artix_username/.local/bin
+
+# Copy tmux-session-switch script to the system
+mv /artix/assets/tmux-session-switch /home/$artix_username/.local/bin/
+chmod +x /home/$artix_username/.local/bin/tmux-session-switch
 
 # Copy prime-run script if necessary
 if [[ $artix_install_nvidia == "y" ]]; then
-    mkdir -p /home/$artix_username/.local/bin
     mv /artix/assets/prime-run /home/$artix_username/.local/bin/
-    chown -R $artix_username:$artix_username /home/$artix_username/.local/
     chmod +x /home/$artix_username/.local/bin/prime-run
 fi
+
+# Update ownership of the scripts so the user can run them
+chown -R $artix_username:$artix_username /home/$artix_username/.local/
 
 # Clone yay
 git clone https://aur.archlinux.org/yay.git
