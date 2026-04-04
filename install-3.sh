@@ -96,3 +96,30 @@ kw -f powerdevilrc -g LowBattery -g SuspendAndShutdown -k SleepMode -v 3
 # dolphinrc
 kw -f dolphinrc -g General -k RememberOpenedTabs -v false -t bool
 kw -f dolphinrc -g VersionControl -k enabledPlugins -v Git
+
+# kglobalshortcutsrc
+# disable conflicting keyboard shortcuts
+kw -f kglobalshortcutsrc -g org_kde_powerdevil -k powerProfile -v 'Battery,Battery\tMeta+B,Switch Power Profile'
+kw -f kglobalshortcutsrc -g kwin -k 'Edit Tiles' -v 'none,Meta+T,Toggle Tiles Editor'
+kw -f kglobalshortcutsrc -g plasmashell -k 'activate task manager entry 1' -v 'none,Meta+1,Activate Task Manager Entry 1'
+kw -f kglobalshortcutsrc -g plasmashell -k 'activate task manager entry 2' -v 'none,Meta+2,Activate Task Manager Entry 2'
+kw -f kglobalshortcutsrc -g plasmashell -k 'activate task manager entry 3' -v 'none,Meta+3,Activate Task Manager Entry 3'
+kw -f kglobalshortcutsrc -g plasmashell -k 'activate task manager entry 4' -v 'none,Meta+4,Activate Task Manager Entry 4'
+kw -f kglobalshortcutsrc -g plasmashell -k 'activate task manager entry 5' -v 'none,Meta+5,Activate Task Manager Entry 5'
+kw -f kglobalshortcutsrc -g plasmashell -k 'activate task manager entry 6' -v 'none,Meta+6,Activate Task Manager Entry 6'
+
+# enable my own keyboard shortcuts
+kw -f kglobalshortcutsrc -g services -g com.mitchellh.ghostty.desktop -k _launch -v Meta+T
+kw -f kglobalshortcutsrc -g services -g google-chrome.desktop -k _launch -v Meta+B
+kw -f kglobalshortcutsrc -g kwin -k 'Switch to Desktop 1' -v 'Meta+1,Meta+F1\tCtrl+F1,Switch to Desktop 1'
+kw -f kglobalshortcutsrc -g kwin -k 'Switch to Desktop 2' -v 'Meta+2,Meta+F2\tCtrl+F2,Switch to Desktop 2'
+kw -f kglobalshortcutsrc -g kwin -k 'Switch to Desktop 3' -v 'Meta+3,Meta+F3\tCtrl+F3,Switch to Desktop 3'
+kw -f kglobalshortcutsrc -g kwin -k 'Switch to Desktop 4' -v 'Meta+4,Meta+F4\tCtrl+F4,Switch to Desktop 4'
+kw -f kglobalshortcutsrc -g kwin -k 'Switch to Desktop 5' -v 'Meta+5,,Switch to Desktop 5'
+kw -f kglobalshortcutsrc -g kwin -k 'Switch to Desktop 6' -v 'Meta+6,,Switch to Desktop 6'
+kw -f kglobalshortcutsrc -g kwin -k 'Window to Desktop 1' -v 'Meta+!,,Window to Desktop 1'
+kw -f kglobalshortcutsrc -g kwin -k 'Window to Desktop 2' -v 'Meta+",,Window to Desktop 2'
+kw -f kglobalshortcutsrc -g kwin -k 'Window to Desktop 3' -v 'Meta+#,,Window to Desktop 3'
+kw -f kglobalshortcutsrc -g kwin -k 'Window to Desktop 4' -v 'Meta+$,,Window to Desktop 4'
+kw -f kglobalshortcutsrc -g kwin -k 'Window to Desktop 5' -v 'Meta+%,,Window to Desktop 5'
+kw -f kglobalshortcutsrc -g kwin -k 'Window to Desktop 6' -v 'Meta+&,,Window to Desktop 6'
