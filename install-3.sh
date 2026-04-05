@@ -19,6 +19,41 @@ for i in $(seq 2 6); do
         uint32:"$i" string:"Desktop $i"
 done
 
+# Add activities
+current_activity() {
+    dbus-send --session --print-reply=literal --dest=org.kde.ActivityManager \
+        /ActivityManager/Activities \
+        org.kde.ActivityManager.Activities.CurrentActivity | xargs
+}
+
+rename_activity() {
+    local activity_id="$1" name="$2"
+    dbus-send --session --print-reply=literal --dest=org.kde.ActivityManager \
+        /ActivityManager/Activities \
+        org.kde.ActivityManager.Activities.SetActivityName \
+        string:"$activity_id" string:"$name"
+}
+
+add_activity() {
+    local name="$1"
+    dbus-send --session --print-reply=literal --dest=org.kde.ActivityManager \
+        /ActivityManager/Activities \
+        org.kde.ActivityManager.Activities.AddActivity \
+        string:"$name" | xargs
+}
+
+# Get current activity id and rename to 1
+ACT_1_ID=$(current_activity)
+rename_activity "$ACT_1_ID" "1"
+
+# Add 3 more activities and name them 2-4
+ACT_2_ID=$(add_activity "2")
+ACT_3_ID=$(add_activity "3")
+ACT_4_ID=$(add_activity "4")
+
+# Wait a a bit so the default activity shortcuts are created
+sleep 3
+
 # Custom function to write configs much easier
 kw() {
     local file="" key="" val="" type=""
@@ -132,3 +167,7 @@ kw -f kglobalshortcutsrc -g kwin -k 'Window to Desktop 3' -v 'Meta+#,,Window to 
 kw -f kglobalshortcutsrc -g kwin -k 'Window to Desktop 4' -v 'Meta+$,,Window to Desktop 4'
 kw -f kglobalshortcutsrc -g kwin -k 'Window to Desktop 5' -v 'Meta+%,,Window to Desktop 5'
 kw -f kglobalshortcutsrc -g kwin -k 'Window to Desktop 6' -v 'Meta+&,,Window to Desktop 6'
+kw -f kglobalshortcutsrc -g ActivityManager -k "switch-to-activity-$ACT_1_ID" -v 'Meta+Shift+J,none,Switch to activity 1'
+kw -f kglobalshortcutsrc -g ActivityManager -k "switch-to-activity-$ACT_2_ID" -v 'Meta+Shift+K,none,Switch to activity 2'
+kw -f kglobalshortcutsrc -g ActivityManager -k "switch-to-activity-$ACT_3_ID" -v 'Meta+Shift+L,none,Switch to activity 3'
+kw -f kglobalshortcutsrc -g ActivityManager -k "switch-to-activity-$ACT_4_ID" -v 'Meta+Shift+Ö,none,Switch to activity 4'
