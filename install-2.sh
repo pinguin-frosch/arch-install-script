@@ -80,6 +80,10 @@ if [[ $artix_install_development == "y" ]]; then
     ln -sf ../dockerd /etc/dinit.d/boot.d/
 fi
 
+# Add breeze theme to sddm automatically
+mkdir -p /etc/sddm.conf.d/
+cp /artix/assets/kde_settings.conf /etc/sddm.conf.d/
+
 # Configure my custom keyboard layout
 mv /artix/assets/pro /usr/share/X11/xkb/symbols/
 mv /artix/assets/00-keyboard.conf /etc/X11/xorg.conf.d/
