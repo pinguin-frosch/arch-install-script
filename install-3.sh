@@ -171,3 +171,22 @@ kw -f kglobalshortcutsrc -g ActivityManager -k "switch-to-activity-$ACT_1_ID" -v
 kw -f kglobalshortcutsrc -g ActivityManager -k "switch-to-activity-$ACT_2_ID" -v 'Meta+Shift+K,none,Switch to activity 2'
 kw -f kglobalshortcutsrc -g ActivityManager -k "switch-to-activity-$ACT_3_ID" -v 'Meta+Shift+L,none,Switch to activity 3'
 kw -f kglobalshortcutsrc -g ActivityManager -k "switch-to-activity-$ACT_4_ID" -v 'Meta+Shift+Ö,none,Switch to activity 4'
+
+cat << EOF
+Script ran successfully.
+
+These are some things that need to be done manually:
+1. Disable mouse acceleration and enable touchpad natural scrolling.
+2. Change screen scale to 125%.
+3. Change desktop session to always start with an empty session.
+4. Update taskbar apps and style.
+5. Add a keyboard shortcut to run swirl.
+
+These might also be necessary:
+1. Create mountpoints for other disks.
+2. Setup printer.
+3. Configure wallpapers for each activity.
+4. Adjust region settings.
+
+For all changes to apply, restart the system.
+EOF
