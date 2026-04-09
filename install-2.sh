@@ -116,8 +116,10 @@ rm -rf /tmp/ttf/
 mkdir -p /home/$artix_username/.local/bin
 
 # Copy tmux-session-switch script to the system
-mv /artix/assets/tmux-session-switch /home/$artix_username/.local/bin/
-chmod +x /home/$artix_username/.local/bin/tmux-session-switch
+if [[ $artix_install_development == "y" ]]; then
+    mv /artix/assets/tmux-session-switch /home/$artix_username/.local/bin/
+    chmod +x /home/$artix_username/.local/bin/tmux-session-switch
+fi
 
 # Copy prime-run script if necessary
 if [[ $artix_install_nvidia == "y" ]]; then
@@ -127,6 +129,13 @@ fi
 
 # Update ownership of the scripts so the user can run them
 chown -R $artix_username:$artix_username /home/$artix_username/.local/
+
+# Install tpm if necessary
+if [[ $artix_install_development == "y" ]]; then
+    mkdir -p /home/$artix_username/.config/tmux/plugins/
+    git clone https://github.com/tmux-plugins/tpm /home/$artix_username/.config/tmux/plugins/tpm
+    chown -R $artix_username:$artix_username /home/$artix_username/.config/
+fi
 
 # Clone yay
 git clone https://aur.archlinux.org/yay.git
