@@ -8,6 +8,13 @@ dinitctl enable pipewire
 dinitctl enable pipewire-pulse
 dinitctl enable wireplumber
 
+# Clone my dotfiles
+mkdir -p $HOME/Programming/
+git clone https://github.com/pinguin-frosch/dotfiles.git $HOME/Programming/dotfiles/
+cd $HOME/Programming/dotfiles/
+./setup.sh stow
+cd $HOME
+
 # Install aur packages
 yay -S --noconfirm --needed - < $HOME/Programming/aur/aur.txt
 
