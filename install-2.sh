@@ -115,17 +115,21 @@ rm -rf /tmp/ttf/
 # Create the user directory for scripts
 mkdir -p /home/$artix_username/.local/bin
 
+# Copy swirl script/binary into the system
+mv /artix/assets/swirl /home/$artix_username/.local/bin/
+
 # Copy tmux-session-switch script to the system
 if [[ $artix_install_development == "y" ]]; then
     mv /artix/assets/tmux-session-switch /home/$artix_username/.local/bin/
-    chmod +x /home/$artix_username/.local/bin/tmux-session-switch
 fi
 
 # Copy prime-run script if necessary
 if [[ $artix_install_nvidia == "y" ]]; then
     mv /artix/assets/prime-run /home/$artix_username/.local/bin/
-    chmod +x /home/$artix_username/.local/bin/prime-run
 fi
+
+# Make all scripts executable
+chmod +x /home/$artix_username/.local/bin/*
 
 # Update ownership of the scripts so the user can run them
 chown -R $artix_username:$artix_username /home/$artix_username/.local/
