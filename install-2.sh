@@ -102,6 +102,16 @@ sed -i "/<\/layoutList>/i\\
       <variantList/>\\
     </layout>" /usr/share/X11/xkb/rules/evdev.xml
 
+# Install pragmasevka font
+mkdir -p /tmp/ttf/
+curl -sL https://github.com/shytikov/pragmasevka/releases/latest/download/Pragmasevka_NF.zip -o /tmp/pragmasevka.zip
+unzip /tmp/pragmasevka.zip -d /tmp/ttf/
+mkdir -p /usr/share/fonts/TTF/
+cp /tmp/ttf/* /usr/share/fonts/TTF/
+fc-cache -fv
+chmod 644 /usr/share/fonts/TTF/*.ttf
+rm -rf /tmp/ttf/
+
 # Create the user directory for scripts
 mkdir -p /home/$artix_username/.local/bin
 
