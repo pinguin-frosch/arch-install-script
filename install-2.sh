@@ -64,6 +64,9 @@ sed -E -i \
     -e "s|^#?\s*(GRUB_DEFAULT=).*|\1saved|" \
     /etc/default/grub
 
+# Reduce grub timeout
+sed -E -i "s|(GRUB_TIMEOUT)=.*|\1=2|" /etc/default/grub
+
 # Enable hibernation
 sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\1 resume=UUID=$artix_swap_uuid/" /etc/default/grub
 sed -i "s/^\(HOOKS=.*filesystems\)/\1 resume/" /etc/mkinitcpio.conf
