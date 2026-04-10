@@ -58,6 +58,12 @@ sed -i "s/^# \(%wheel ALL=(ALL:ALL) ALL\)/\1/" /etc/sudoers
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
 sed -i "s/^#\(GRUB_DISABLE_OS_PROBER=\).*/\1false/" /etc/default/grub
 
+# Remember last used os
+sed -E -i \
+    -e "s|^#?\s*(GRUB_SAVEDEFAULT=).*|\1true|" \
+    -e "s|^#?\s*(GRUB_DEFAULT=).*|\1saved|" \
+    /etc/default/grub
+
 # Enable hibernation
 sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\1 resume=UUID=$artix_swap_uuid/" /etc/default/grub
 sed -i "s/^\(HOOKS=.*filesystems\)/\1 resume/" /etc/mkinitcpio.conf
