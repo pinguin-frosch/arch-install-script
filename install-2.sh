@@ -54,6 +54,13 @@ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 # Enable wheel group for sudo access
 sed -i "s/^# \(%wheel ALL=(ALL:ALL) ALL\)/\1/" /etc/sudoers
 
+# Balance faillock values
+sed -E -i \
+    -e "s|^#?\s*(deny).*|\1 = 10|" \
+    -e "s|^#?\s*(fail_interval).*|\1 = 300|" \
+    -e "s|^#?\s*(unlock_time).*|\1 = 30|" \
+    /etc/security/faillock.conf
+
 # Install and setup grub bootloader
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
 sed -i "s/^#\(GRUB_DISABLE_OS_PROBER=\).*/\1false/" /etc/default/grub
