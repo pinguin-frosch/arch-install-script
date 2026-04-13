@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/tuned -l -P
+smooth-recovery = true
+depends-on = dbus
+waits-for = dbus

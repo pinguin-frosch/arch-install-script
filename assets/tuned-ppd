@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/tuned-ppd
+smooth-recovery = true
+depends-on = tuned
+waits-for = tuned

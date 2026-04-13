@@ -18,6 +18,10 @@ cd $HOME
 # Install aur packages
 yay -S --noconfirm --needed - < $HOME/Programming/aur/aur.txt
 
+# Enable tuned
+sudo dinitctl enable tuned
+sudo dinitctl enable tuned-ppd
+
 # Add virtual desktops
 for i in $(seq 2 6); do
     dbus-send --session --print-reply --dest=org.kde.KWin \

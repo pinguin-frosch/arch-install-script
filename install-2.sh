@@ -96,6 +96,10 @@ if [[ $artix_install_development == "y" ]]; then
     ln -sf ../dockerd /etc/dinit.d/boot.d/
 fi
 
+# Copy the tuned services, but don't enable them as they aren't installed just yet
+cp /artix/assets/tuned /artix/assets/tuned-ppd /etc/dinit.d/
+chmod 644 /etc/dinit.d/tuned /etc/dinit.d/tuned-ppd
+
 # Add breeze theme to sddm automatically
 mkdir -p /etc/sddm.conf.d/
 cp /artix/assets/kde_settings.conf /etc/sddm.conf.d/
